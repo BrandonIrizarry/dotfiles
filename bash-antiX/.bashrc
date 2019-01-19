@@ -124,3 +124,7 @@ fi
 # Add sbin directories to PATH.  This is useful on systems that have sudo
 
 [ -z "${PATH##*/sbin*}" ] || PATH=$PATH:/sbin:/usr/sbin
+
+
+# Add ~/bin to PATH.
+PATH=$PATH:~/bin
