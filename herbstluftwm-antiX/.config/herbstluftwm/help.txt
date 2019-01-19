@@ -1,0 +1,18 @@
+Getting started with herbstluftwm (hlwm)
+
+1. Read the manual.
+
+2. Default settings:
+
+Mod=mod4
+mod4 key = windows key
+
+Mod-Shift-q - This will take you to the login screen.
+Mod-Shift-b - Reboot
+
+
+Mod-Return - Terminal
+Mod-d - dmenu
+Mod-o - splits the screen horizontally
+
+3. Enjoy!

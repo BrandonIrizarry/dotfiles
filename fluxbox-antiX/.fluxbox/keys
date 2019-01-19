@@ -4,9 +4,6 @@ Mod4 0 :Reconfig
 # Toggle showing the desktop
 Mod4 space :ShowDesktop
 
-# Launch programs.
-Mod4 r :Exec fbrun
-
 # Run a Fluxbox command with Mod4+colon.
 Mod4 shift semicolon :CommandDialog
 
@@ -14,127 +11,51 @@ Mod4 shift semicolon :CommandDialog
 shift Menu :HideMenus
 Menu :RootMenu
 
-# Run the AntiX "desktop-session-exit" GUI
-#Mod4 shift q :Exec desktop-session-exit
-Mod4 F12 :Exec desktop-session-exit
-
 # Bind some default applications to hotkeys.
 Mod4 Return :Exec desktop-defaults-run -t
 Mod4 shift Return :Exec desktop-defaults-run -te
 Mod4 shift backslash :Exec desktop-defaults-run -b
+Mod4 shift q :Exec desktop-session-exit
 
-#Mod4 F9 :Exec desktop-defaults-run -t
-#Mod4 F10 :Exec desktop-defaults-run -te
-#Mod4 F11 :Exec desktop-deafults-run -b
-
-# Emulate a tiling WM with these commands.
-# Works with 1.3.7, which I don't have in AntiX :(
-#Mod4 Down :ArrangeWindowsStackTop
-#Mod4 Left :ArrangeWindowsStackRight
-#Mod4 Right :ArrangeWindowsStackLeft
-#Mod4 Up :ArrangeWindowsStackBottom
-
-# Switch tabs, windows, and workspaces with these commands.
-Mod4 Right :NextTab
-Mod4 Left :PrevTab
-Mod4 j :NextWindow {groups} (workspace=[current])
-Mod4 k :PrevWindow {groups} (workspace=[current])
-Mod4 comma :PrevWorkspace
-Mod4 period :NextWorkspace
-
-# Toggle the titlebar per window.
-# We can use a loop construct to apply this to all open windows
-# in the current workspace.
-Mod4 minus :ToggleDecor
+# Launch programs.
+Mod4 r :Exec gexec
 
 # Commands on the current window
-# We don't need this right now.
-#Mod4 x k :Close
-#Mod4 x shift k :Kill
-#Mod4 x n :Minimize
-#Mod4 x m :Maximize
-#Mod4 x f :Fullscreen
-#Mod4 x o :WindowMenu
+Mod4 q :Close
 
-# volume settings, using common keycodes
-# if these don't work, use xev to find out your real keycodes
-# or e.g. xmodmap -pke | grep KP
-#Mod4 KP_Add :Exec amixer sset Master,0 5%+
-#Mod4 KP_Subtract :Exec amixer sset Master,0 5%-
-#Mod4 KP_Multiply :Exec amixer sset Master,0 toggle
+# Switch tabs
+Mod4 period :NextTab
+Mod4 comma :PrevTab
 
-Mod4 shift Up :Exec amixer sset Master,0 5%+
-Mod4 shift Down :Exec amixer sset Master,0 5%-
-Mod4 m :Exec amixer sset Master,0 toggle
+# Switch windows
+Mod4 j :NextWindow {groups} (workspace=[current])
+Mod4 k :PrevWindow {groups} (workspace=[current])
+
+# WORKSPACES
 
 # change to a specific workspace
-Mod4 1 :Workspace 1
-Mod4 2 :Workspace 2
-Mod4 3 :Workspace 3
-Mod4 4 :Workspace 4
-Mod4 5 :Workspace 5
-Mod4 6 :Workspace 6
-Mod4 7 :Workspace 7
-Mod4 8 :Workspace 8
-Mod4 9 :Workspace 9
-#Mod4 0 :Workspace 10
-
-# Exit fluxbox: use ctrl+alt+delete
-# In AntiX, we don't need this, since this has been set for us.
-#Control Mod1 Delete :Exit
-
-# send the current window and follow it to previous/next workspace
-# shift 0=")", shift 9="("
-Mod4 shift 0 :TakeToNextWorkspace
-Mod4 shift 9 :TakeToPrevWorkspace
-
-
-# send the current window to previous/next workspace
-# shift period=">", shift comma="<"
-Mod4 shift period :SendToNextWorkspace
-Mod4 shift comma :SendToPrevWorkspace
+Mod4 u :Workspace 1
+Mod4 i :Workspace 2
+Mod4 o :Workspace 3
+Mod4 p :Workspace 4
 
 # send the current window to a specific workspace
-#Mod4 F1 :SendToWorkspace 1
-#Mod4 F2 :SendToWorkspace 2
-#Mod4 F3 :SendToWorkspace 3
-#Mod4 F4 :SendToWorkspace 4
-#Mod4 F5 :SendToWorkspace 5
-#Mod4 F6 :SendToWorkspace 6
-#Mod4 F7 :SendToWorkspace 7
-#Mod4 F8 :SendToWorkspace 8
-#Mod4 F9 :SendToWorkspace 9
-#Mod4 F10 :SendToWorkspace 10
-#Mod4 F11 :SendToWorkspace 11
-#Mod4 F12 :SendToWorkspace 12
+Mod4 shift u :SendToWorkspace 1
+Mod4 shift i :SendToWorkspace 2
+Mod4 shift o :SendToWorkspace 3
+Mod4 shift p :SendToWorkspace 4
 
 # send the current window and change to a specific workspace
-#Control Mod4 F1 :TakeToWorkspace 1
-#Control Mod4 F2 :TakeToWorkspace 2
-#Control Mod4 F3 :TakeToWorkspace 3
-#Control Mod4 F4 :TakeToWorkspace 4
-#Control Mod4 F5 :TakeToWorkspace 5
-#Control Mod4 F6 :TakeToWorkspace 6
-#Control Mod4 F7 :TakeToWorkspace 7
-#Control Mod4 F8 :TakeToWorkspace 8
-#Control Mod4 F9 :TakeToWorkspace 9
-#Control Mod4 F10 :TakeToWorkspace 10
-#Control Mod4 F11 :TakeToWorkspace 11
-#Control Mod4 F12 :TakeToWorkspace 12
+Mod4 y u :TakeToWorkspace 1
+Mod4 y i :TakeToWorkspace 2
+Mod4 y o :TakeToWorkspace 3
+Mod4 y p :TakeToWorkspace 4
 
 # -- MOUSE BINDINGS --
 # click on the desktop to get menus
 OnDesktop Mouse1 :HideMenus
 OnDesktop Mouse2 :WorkspaceMenu
 OnDesktop Mouse3 :RootMenu
-
-# scroll on the desktop to change workspaces
-OnDesktop Mouse4 :PrevWorkspace
-OnDesktop Mouse5 :NextWorkspace
-
-# scroll on the toolbar to change current window
-OnToolbar Mouse4 :PrevWindow {static groups} (iconhidden=no)
-OnToolbar Mouse5 :NextWindow {static groups} (iconhidden=no)
 
 # alt + left/right click to move/resize a window
 OnWindow Mod1 Mouse1 :MacroCmd {Raise} {Focus} {StartMoving}
@@ -164,6 +85,14 @@ OnTitlebar Mouse2 :Lower
 OnTitlebar Mouse3 :WindowMenu
 
 
+# OTHER
+
+# volume settings, using common keycodes
+# if these don't work, use xev to find out your real keycodes
+# or e.g. xmodmap -pke | grep KP
+Mod4 shift Up :Exec amixer sset Master,0 5%+
+Mod4 shift Down :Exec amixer sset Master,0 5%-
+Mod4 m :Exec amixer sset Master,0 toggle
 
 
 

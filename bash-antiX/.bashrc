@@ -126,5 +126,8 @@ fi
 [ -z "${PATH##*/sbin*}" ] || PATH=$PATH:/sbin:/usr/sbin
 
 
-# Add ~/bin to PATH.
-PATH=$PATH:~/bin
+[ -s ~/.luaver/luaver ] && . ~/.luaver/luaver
+[ -s ~/.luaver/completions/luaver.bash ] && . ~/.luaver/completions/luaver.bash
+
+# Set Lua version to 5.3.5
+luaver use 5.3.5 > /dev/null
