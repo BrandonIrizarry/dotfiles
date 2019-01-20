@@ -63,7 +63,8 @@ hc keybind $Mod-comma  use_index -1 --skip-visible
 hc keybind $Mod-Left  use_index -1 --skip-visible
 
 # layouting
-hc keybind $Mod-r removehc keybind $Mod-space cycle_layout 1
+hc keybind $Mod-r remove
+hc keybind $Mod-space cycle_layout 1
 hc keybind $Mod-u split vertical 0.5
 hc keybind $Mod-Shift-u split vertical 0.3
 hc keybind $Mod-o split horizontal 0.5
@@ -134,6 +135,7 @@ hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole|X-terminal-emulator)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
+hc rule class~'(XClock)' pseudotile=on
 
 # unlock, just to be sure
 hc unlock
@@ -154,4 +156,4 @@ panel=~/.config/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     $panel $monitor &
-done
+done  
