@@ -1,10 +1,7 @@
 --[[
 	README
 	
-	A module for opening files in Textadept.
-	
-	In Emacs, the file-opening facilities automatically come with "new file" functionality;
-I missed that, so I implemented that here using a filtered list box that uses the output
+	A module for opening files in Textadept, that uses a filtered list box that uses the output 
 of an 'ls' command. 
 	The button "Create" prompts to create a new file in the currently listed directory;
 the "Descend" button will either list a subdirectory, or open a file (depending on what
@@ -26,6 +23,9 @@ symbolic links; otherwise, it won't be able to tell apart a _symlink to a direct
 Finally, -a gives us in addition all files that begin with a dot: this gives us access to "../", which allows
 us to move up a directory; and the box's filtering functionality eases the burden of wading through a ton
 of hidden files, making a full directory listing worth it.
+
+	Admittedly, the only real extra benefit this module provides is fuzzy search. I mistakenly thought that
+the default file opener in Textadept didn't let you create a new file, but that isn't true!
 ]]
 
 local M = {} 

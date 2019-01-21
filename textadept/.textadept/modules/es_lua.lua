@@ -2,13 +2,13 @@ return {
 
   reload = 
 [[
-  function reload ()
-      package.loaded["%<buffer.filename>"] = nil
-      dofile("%<buffer.filename>")
-  end
+function reload ()
+	package.loaded["%<buffer.filename>"] = nil
+	dofile("%<buffer.filename>")
+end
 ]],
 
-  loc = "local %1(name)%2( = %3(buffer))\n%0",
+  loc = "local %1(name)%2( = %3(buffer))%0",
 
   func = 
 [[
@@ -20,4 +20,4 @@ end
   ["."] = "%1(lib).%0(member)",
   
   pr = "print(%0)",
-}
+} 
