@@ -6,7 +6,12 @@ function M.open_file_or_new (dir)
 	local buffer_curdir = buffer.filename:match("^.*/")
 	local dir = dir or buffer_curdir
 	
-	local gen_input = io.popen(string.format("ls -ap %s", dir))
+	-- ls flags (see 'man ls'):
+	-- Dereference symbolic links with 'L';
+	-- Show hidden files with 'a';
+	-- Mark directories with a final '/' with 'p'.
+	-- Our function only knows something is a directory because of a final '/' in its name.
+	local gen_input = io.popen(string.format("ls -Lap %s", dir))
 	local dir_entries = {}
 	
 	for entry in gen_input:lines() do
