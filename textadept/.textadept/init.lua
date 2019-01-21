@@ -16,8 +16,8 @@ if not CURSES then
   rgb_dialog = require("rgb_dialog").dialog
 end
 
-open_file_or_new = require("open_file_or_new").open_file_or_new
-keys.co = open_file_or_new
+keys.co = require("open_file_or_new").open_file_or_new
+
 
 -- Load extra snippets to the Lua snippets table; 
 -- make sure that the Lua lexer is loaded _first_.
