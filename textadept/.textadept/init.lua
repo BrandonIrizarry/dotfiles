@@ -18,7 +18,6 @@ end
 
 keys.co = require("open_file_or_new").open_file_or_new
 
-
 -- Load extra snippets to the Lua snippets table; 
 -- make sure that the Lua lexer is loaded _first_.
 events.connect(events.LEXER_LOADED, function (lexer)
