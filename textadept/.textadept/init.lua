@@ -16,7 +16,13 @@ if not CURSES then
   rgb_dialog = require("rgb_dialog").dialog
 end
 
-keys.co = require("open_file_or_new").open_file_or_new
+open_file_or_new = require("open_file_or_new").open_file_or_new
+keys.co = open_file_or_new
+keys.cu = function () open_file_or_new(_USERHOME .. "/") end
+
+if not CURSES then
+	keys.car = reset
+end
 
 -- Load extra snippets to the Lua snippets table; 
 -- make sure that the Lua lexer is loaded _first_.
