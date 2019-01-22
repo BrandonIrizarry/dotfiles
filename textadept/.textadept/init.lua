@@ -40,11 +40,13 @@ for shorthand, snippet in pairs(require("es_global")) do
 end
 
 -- Load extra/personal keybindings into Textadept.
+--[[
 if not CURSES then
   for binding, func in pairs(require("extra_keys")) do
     keys[binding] = func
   end
 end
+--]]
 
 -- Confirm saves with a dialog box.
 events.connect(events.FILE_BEFORE_SAVE, function (filename)
@@ -67,7 +69,7 @@ else
 	buffer:set_theme(THEME, FONT_TABLE)
 end
 
-keys.cT = function () os.spawn("desktop-defaults-run -t", buffer.filename:match("^(.*)/")) end
+keys.cT = function () os.spawn("x-terminal-emulator", buffer.filename:match("^(.*)/")) end
 
 -- Disable character autopairing with typeover
 textadept.editing.auto_pairs = nil
