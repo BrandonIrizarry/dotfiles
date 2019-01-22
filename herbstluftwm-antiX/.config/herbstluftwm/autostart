@@ -34,6 +34,7 @@ hc keybind $Mod-Shift-c close
 # Open apps
 hc keybind $Mod-Return spawn x-terminal-emulator
 hc keybind $Mod-d spawn dmenu_run 
+hc keybind $Mod-t spawn xclock
 
 # screenshots
 hc keybind $Mod-F12 spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
@@ -135,7 +136,7 @@ hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole|X-terminal-emulator)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
-hc rule class~'(XClock)' pseudotile=on
+hc rule class~'(XClock)' pseudotile=on focus=on
 
 # unlock, just to be sure
 hc unlock
