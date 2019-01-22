@@ -51,7 +51,8 @@ herbstclient pad $monitor $panel_height
     while true ; do
         #date +'date ^fg(#efefef)%l:%M %P^fg(#909090), %Y-%m-^fg(#efefef)%d'
         #date +'date ^fg(#efefef)%l:%M %P^fg(#909090), %Y-%m-^fg(#efefef)%d'
-        date +'date ^fg(#ffdfe5)%A, %B %d %Y %l:%M %P'
+        #date +'date ^fg(#ffdfe5)%A, %B %d %Y %l:%M %P'
+        date +'date ^fg(#ffdfe5)%A, %B %d %Y'
         sleep 1 || break
     done > >(uniq_linebuffered)  &
     childpid=$!
