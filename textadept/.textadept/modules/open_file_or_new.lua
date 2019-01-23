@@ -23,30 +23,26 @@ selected entry will _descend_ into that entry.
 
 local M = {} 
 
+local patterns = {
+
+	-- Examples:
+	-- /home/brandon/ => match
+	-- /home/brandon/myfile.txt => no match
+	ANY_DIR = "/$",
+	
+	-- Examples: 
+	-- /home/brandon/.textadept/ => /.textadept/
+	-- / => /
+	FINAL_DIR = "/[^/]*/?$",
+	
+	-- Examples:
+	-- /home/brandon/.textadept/init.lua => /home/brandon/.textadept/
+	PARENT_DIR = "^.*/",
+}
+
 function M.open_file_or_new (dir)
-	local curdir = buffer.filename and 
-						buffer.filename:match("^.*/") or 
-						string.format("%s/", os.getenv("HOME"))
-						
-	local dir = dir or curdir
-
-	local gen_input = io.popen(string.format("ls -Lap %s", dir))
-	local dir_entries = {}
-	
-	for entry in gen_input:lines() do
-		dir_entries[#dir_entries + 1] = entry
-	end
-
-	local button_label, dir_entry = ui.dialogs.filteredlist {
-		button1 = "Descend",
-		button2 = "Create",
-		title = "Open File or New", 
-		columns = {dir},
-		string_output = true,
-		items = dir_entries
-	}
-	
-	-- Prompt the user for the base filename.
+			
+	-- Used to prompt the user for the name of a new file.
 	local function create ()
 		local button, filename = ui.dialogs.standard_inputbox {
 			title = "Create New File",
@@ -59,26 +55,58 @@ function M.open_file_or_new (dir)
 		end
 	end
 
+	-- Get all the directory entries.
+	local curdir = buffer.filename and 
+						buffer.filename:match(patterns.PARENT_DIR) or 
+						string.format("%s/", os.getenv("HOME"))
+						
+	local dir = dir or curdir
+
+	local gen_input = io.popen(string.format("ls -Lap %s", dir))
+	local dir_entries = {}
+	
+	for line in gen_input:lines() do
+		dir_entries[#dir_entries + 1] = line
+	end
+
+
+	-- Generate and present the filtered list to the user.
+	local button_label, user_selections = ui.dialogs.filteredlist {
+		button1 = "Descend",
+		button2 = "Create",
+		title = "Open File or New", 
+		columns = {dir},
+		string_output = true,
+		select_multiple = true,
+		items = dir_entries
+	}
+	
 	-- Note that "Esc" cancels the dialog box.
 	if button_label == "Descend" then 
-		if not dir_entry then -- user input was not among the possible selections.
+		if not user_selections then -- user input was not among the possible selections.
 			alert(nil, "That file or directory doesn't exist.")
 			M.open_file_or_new(dir)
-		elseif dir_entry == "./" then -- cheat code for file creation.
-			create() 
-		elseif dir_entry == "../" then -- find the parent directory: "$PARENT/optional_leaf_entry".
-			local optional_leaf_entry  = "/[^/]*/?$" -- handles case where dir == "/".
-			local parent_dir = dir:sub(1, dir:find(optional_leaf_entry)) -- grab until where that entry starts.
-			M.open_file_or_new(parent_dir)
 		else
-			local entry_abspath = dir .. dir_entry -- otherwise, get the absolute path of the current selection.
-		
-			if dir_entry:find("/$") then -- the current selection is a directory.
-				M.open_file_or_new(entry_abspath)
-			else
-				io.open_file(entry_abspath) -- we can open an existing, non-directory entry in Textadept.
+			--Open all non-directories first.
+			for i, sel in ipairs(user_selections) do
+				if not sel:match(patterns.ANY_DIR) then -- matches a non-directory.
+					io.open_file(dir .. sel)
+					user_selections[i] = nil -- delete the entry to simplify the next for-loop.
+				end
 			end
-		end
+		
+			-- Now travel through all directories.
+			for _, d in pairs(user_selections) do
+				if d == "./" then 
+					create()
+				elseif d == "../" then
+					local parent_dir = dir:sub(1, dir:find(patterns.FINAL_DIR)) -- grab until where that entry starts.
+					M.open_file_or_new(parent_dir)
+				else
+					M.open_file_or_new(dir .. d)
+        end
+			end
+    end
 	elseif button_label == "Create" then
 		create()
 	end
