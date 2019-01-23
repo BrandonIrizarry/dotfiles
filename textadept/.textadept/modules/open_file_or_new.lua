@@ -19,15 +19,6 @@ selected entry will _descend_ into that entry.
 		Show hidden files;
 	-p
 		Print directories with a final '/' (frontslash).
-	
-	An entry is a directory if and only if -p gives it
-a final '/', so we can uniquely identify directories using this
-technique. Furthermore, L helps us tell apart a _symlink to a directory_
-from a non-directory. Finally, -a shows all hidden entries: this gives
-us access to "./" (creates a new file) and "../", which allows us to
-move up a directory; and the box's filtering functionality eases the
-burden of wading through a ton of hidden files, making a full directory
-listing worth it.
 ]]
 
 local M = {} 
@@ -75,7 +66,7 @@ function M.open_file_or_new (dir)
 			M.open_file_or_new(dir)
 		elseif dir_entry == "./" then -- cheat code for file creation.
 			create() 
-		elseif dir_entry == "../" then
+		elseif dir_entry == "../" then -- find the parent directory: "$PARENT/optional_leaf_entry".
 			local optional_leaf_entry  = "/[^/]*/?$" -- handles case where dir == "/".
 			local parent_dir = dir:sub(1, dir:find(optional_leaf_entry)) -- grab until where that entry starts.
 			M.open_file_or_new(parent_dir)
