@@ -27,7 +27,8 @@ Mod=Mod4
 #hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-q spawn desktop-session-exit
 hc keybind $Mod-Shift-r reload
-hc keybind $Mod-Shift-c close
+#hc keybind $Mod-Shift-c close
+hc keybind $Mod-c close
 #hc keybind $Mod-Shift-b spawn sudo persist-config --shutdown --command reboot
 
 
@@ -94,7 +95,7 @@ hc mousebind $Mod-Button3 zoom
 hc keybind $Mod-BackSpace   cycle_monitor
 hc keybind $Mod-Tab         cycle_all +1
 hc keybind $Mod-Shift-Tab   cycle_all -1
-hc keybind $Mod-c cycle
+#hc keybind $Mod-c cycle
 hc keybind $Mod-h focus left
 hc keybind $Mod-j focus down
 hc keybind $Mod-k focus up
