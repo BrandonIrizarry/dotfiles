@@ -42,6 +42,13 @@ local patterns = {
 
 function M.open_file_or_new (dir)
 			
+	-- Get all the directory entries.
+	local curdir = buffer.filename and 
+						buffer.filename:match(patterns.PARENT_DIR) or 
+						string.format("%s/", os.getenv("HOME"))
+						
+	local dir = dir or curdir
+
 	-- Used to prompt the user for the name of a new file.
 	local function create ()
 		local button, filename = ui.dialogs.standard_inputbox {
@@ -54,13 +61,6 @@ function M.open_file_or_new (dir)
 			io.save_file_as(dir .. filename) -- write the buffer to disk with the given absolute filename.
 		end
 	end
-
-	-- Get all the directory entries.
-	local curdir = buffer.filename and 
-						buffer.filename:match(patterns.PARENT_DIR) or 
-						string.format("%s/", os.getenv("HOME"))
-						
-	local dir = dir or curdir
 
 	local gen_input = io.popen(string.format("ls -Lap %s", dir))
 	local dir_entries = {}
@@ -83,7 +83,7 @@ function M.open_file_or_new (dir)
 	
 	-- Note that "Esc" cancels the dialog box.
 	if button_label == "Descend" then 
-		if not user_selections then -- user input was not among the possible selections.
+		if #user_selections == 0 then -- user input was not among the possible selections.
 			alert(nil, "That file or directory doesn't exist.")
 			M.open_file_or_new(dir)
 		else

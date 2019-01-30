@@ -16,9 +16,13 @@ if not CURSES then
   rgb_dialog = require("rgb_dialog").dialog
 end
 
-open_file_or_new = require("open_file_or_new").open_file_or_new
-keys.co = open_file_or_new
+--open_file_or_new = require("open_file_or_new").open_file_or_new
+--keys.co = open_file_or_new
 keys.cu = function () open_file_or_new(_USERHOME .. "/") end
+
+textredux = require 'textredux'
+keys.co = textredux.fs.open_file
+keys.cu = function () keys.co(_USERHOME .. "/") end
 
 if not CURSES then
 	keys.car = reset
@@ -85,3 +89,5 @@ buffer.indentation_guides = buffer.IV_NONE
 -- Disable code folding and hide the fold margin
 buffer.property.fold = "0"
 buffer.margin_width_n[2] = 0
+
+keys.f12 = function () os.spawn("textadept -f -u '/home/brandon/.textadept-blank'") end

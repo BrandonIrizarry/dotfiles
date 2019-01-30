@@ -24,18 +24,13 @@ hc keyunbind --all
 
 # keybindings
 Mod=Mod4
-#hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-q spawn desktop-session-exit
 hc keybind $Mod-Shift-r reload
-#hc keybind $Mod-Shift-c close
 hc keybind $Mod-c close
-#hc keybind $Mod-Shift-b spawn sudo persist-config --shutdown --command reboot
-
 
 # Open apps
 hc keybind $Mod-Return spawn x-terminal-emulator
-hc keybind $Mod-d spawn dmenu_run 
-hc keybind $Mod-t spawn xclock
+hc keybind $Mod-d spawn dmenu_run
 
 # screenshots
 hc keybind $Mod-F12 spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
@@ -61,16 +56,14 @@ done
 # cycle through tags
 hc keybind $Mod-period use_index +1 --skip-visible
 hc keybind $Mod-comma  use_index -1 --skip-visible
-#hc keybind $Mod-Right use_index +1 --skip-visible
-hc keybind $Mod-Left  use_index -1 --skip-visible
 
 # layouting
 hc keybind $Mod-r remove
 hc keybind $Mod-space cycle_layout 1
 hc keybind $Mod-u split vertical 0.5
-hc keybind $Mod-Shift-u split vertical 0.3
+hc keybind $Mod-Shift-u split vertical 0.7
 hc keybind $Mod-o split horizontal 0.5
-hc keybind $Mod-Shift-o split horizontal 0.3
+hc keybind $Mod-Shift-o split horizontal 0.7
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
@@ -95,7 +88,6 @@ hc mousebind $Mod-Button3 zoom
 hc keybind $Mod-BackSpace   cycle_monitor
 hc keybind $Mod-Tab         cycle_all +1
 hc keybind $Mod-Shift-Tab   cycle_all -1
-#hc keybind $Mod-c cycle
 hc keybind $Mod-h focus left
 hc keybind $Mod-j focus down
 hc keybind $Mod-k focus up
@@ -121,6 +113,7 @@ hc set window_border_normal_color '#454545'
 
 hc set always_show_frame 0
 hc set frame_gap 0
+
 # add overlapping window borders
 hc set window_gap -0
 hc set frame_padding 0
@@ -137,7 +130,8 @@ hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole|X-terminal-emulator)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
-hc rule class~'(XClock)' pseudotile=on focus=on
+hc rule class=XClock pseudotile=on focus=on
+hc rule class=Desktop-session-exit.py pseudotile=on
 
 # unlock, just to be sure
 hc unlock
