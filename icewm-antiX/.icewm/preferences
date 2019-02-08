@@ -80,8 +80,12 @@ NetworkStatusDevice="ppp0 eth0"
 #####################
 Win95Keys=1
 
-ModSuperIsCtrlAlt=1
+ModSuperIsCtrlAlt=0
 
+#KeyWinSize="Super+z"
+#KeyWinMove="Super+period"
+KeyWinMaximizeVert="Super+v"
+KeyWinClose="Super+c" # new
 KeyWinArrangeN="Ctrl+Alt+KP_8"
 KeyWinArrangeNE="Ctrl+Alt+KP_9"
 KeyWinArrangeE="Ctrl+Alt+KP_6"
@@ -95,15 +99,16 @@ KeyWinArrangeC="Ctrl+Alt+KP_5"
 KeySysSwitchNext="Alt+Tab"
 KeySysSwitchLast="Alt+Shift+Tab"
 
-KeySysWinNext="Alt+Esc"
-KeySysWinPrev="Alt+Shift+Esc"
+KeySysWinNext="Super+l" # new
+KeySysWinPrev="Super+h" # new
+
 KeySysWinMenu="Shift+Esc"
 
 KeySysDialog="Alt+Ctrl+Del"
 
 KeySysMenu="Ctrl+Esc"
-KeySysWindowList="Alt+Ctrl+Esc"
-KeySysAddressBar="Alt+Ctrl+Space"
+KeySysWindowList="Super+o" # new
+KeySysAddressBar="Super+r" # new
 
 KeySysWorkspacePrev="Alt+Ctrl+Left"
 KeySysWorkspaceNext="Alt+Ctrl+Right"
@@ -128,8 +133,8 @@ KeySysArrangeIcons="Alt+Shift+F8"
 KeySysMinimizeAll="Alt+Shift+F9"
 KeySysHideAll="Alt+Shift+F11"
 KeySysUndoArrange="Alt+Shift+F7"
-KeySysShowDesktop="Alt+Ctrl+d"
-KeySysCollapseTaskBar="Alt+Ctrl+h"
+KeySysShowDesktop="Super+m" # new
+KeySysCollapseTaskBar="Super+d" # new
 
 #
 # icewmbg preferences
