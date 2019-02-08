@@ -1,0 +1,50 @@
+prog "Terminal" /usr/share/icons/Faenza-Cupertino-mini/apps/32/terminal.png desktop-defaults-run -t
+prog "File Manager" /usr/share/icons/Faenza-Cupertino-mini/places/32/user-home.png desktop-defaults-run -fm
+separator
+prog "Web Browser" /usr/share/icons/Faenza-Cupertino-mini/apps/32/web-browser.png desktop-defaults-run -b
+prog "Editor" /usr/share/icons/Faenza-Cupertino-mini/apps/32/text-editor.png desktop-defaults-run -te
+separator
+menufile "Personal" /usr/share/icons/Faenza-Cupertino-mini/apps/32/config-users.png personal
+menufile "Applications" /usr/share/icons/Faenza-Cupertino-mini/categories/32/applications-accessories.png menu-applications
+prog "Update Menu" /usr/share/icons/Faenza-Cupertino-mini/apps/32/update-manager.png desktop-menu --write-out-global
+separator
+menu "Desktop" /usr/share/icons/Faenza-Cupertino-mini/places/32/user-desktop.png {
+    menufile "Other Desktops" /usr/share/icons/Faenza-Cupertino-mini/places/32/user-desktop.png /usr/share/desktop-session/wm-menus/icewm-wm-menu
+    prog "RoxPanel on/off" /usr/share/icons/Faenza-Cupertino-mini/apps/32/gnome-panel.png paneltoggle.sh
+    prog "Conky on/off" /usr/share/icons/Faenza-Cupertino-mini/apps/32/utilities-system-monitor.png conkytoggle.sh
+}
+separator
+    prog "App Killer" /usr/share/icons/Faenza-Cupertino-mini/actions/32/gtk-no.png xkill
+prog "Control Centre" /usr/share/icons/Faenza-Cupertino-mini/categories/32/preferences-desktop.png antixcc.sh
+separator
+menu "Help" /usr/share/icons/Faenza-Cupertino-mini/apps/32/help-browser.png {
+    menu "antiX" /usr/share/icons/Faenza-Cupertino-mini/places/32/folder.png {
+        prog "antiX Video" - dillo /usr/share/antiX/antix_help_videos.html
+        prog "antiX FAQ" - dillo /usr/share/antiX/FAQ/index.html
+        prog "antiX-live How-To" - dillo /usr/share/antiX/Boot_Menu/antiX-gfxboot.html
+        separator
+        prog "Rox Manual" - dillo http://rox.sourceforge.net/Manual/Manual/Manual.html
+    }
+    separator
+    menu "IceWM" /usr/share/icons/Faenza-Cupertino-mini/places/32/folder.png {
+        prog "IceWM FAQ" - dillo http://www.icewm.org/FAQ/
+        prog "IceWM Manual" - dillo http://www.icewm.org/manual/
+        separator
+        prog "OSNews" - dillo http://www.osnews.com/story/7774/IceWM--The-Cool-Window-Manager/
+    }
+    separator
+    menu "Applications" /usr/share/icons/Faenza-Cupertino-mini/places/32/folder.png {
+        prog "Firewall" - dillo https://help.ubuntu.com/community/Gufw
+        prog "Partimage" - dillo http://www.partimage.org/Partimage-manual_Usage
+    }
+    menu "Man Pages" /usr/share/icons/Faenza-Cupertino-mini/places/32/folder.png {
+        prog "Backup" - desktop-defaults-run -t man luckybackup
+        prog "Irssi" - desktop-defaults-run -t man irssi
+        prog "mc" - desktop-defaults-run -t man mc
+        prog "mocp" - desktop-defaults-run -t man mocp
+        prog "Nano" - desktop-defaults-run -t man nano
+        prog "Rss/Atom" - desktop-defaults-run -t man newsbeuter
+        prog "Terminal" - desktop-defaults-run -t man urxvt
+        prog "Torrent" - desktop-defaults-run -t man rtorrent
+    }
+}

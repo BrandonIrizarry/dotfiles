@@ -1,0 +1,59 @@
+#Sample icewm keys for antiX.
+# Wingrid 
+key "Ctrl+1" wingrid-left.sh
+key "Ctrl+2" wingrid-right.sh
+key "Ctrl+3" wingrid-top.sh
+key "Ctrl+4" wingrid-bottom.sh
+key "Ctrl+5" wingrid-topleft.sh
+key "Ctrl+6" wingrid-topright.sh
+key "Ctrl+7" wingrid-bottomleft.sh
+key "Ctrl+8" wingrid-bottomright.sh
+key "Ctrl+9" wingrid-maximize.sh
+key "Ctrl+0" wingrid-close.sh
+
+# suggested
+key "Alt+F2" gexec
+#key "Ctrl+Shift+Delete" desktop-session-exit
+#key "Ctrl+Alt+e" desktop-defaults-run -e
+#key "Ctrl+Alt+t" desktop-defaults-run -t
+#key "Ctrl+Shift+t" desktop-defaults-run -r -t
+#key "Ctrl+Alt+u" gftp
+#key "Ctrl+Alt+i" desktop-defaults-run -i
+#key "Ctrl+Alt+o" libreoffice
+#key "Ctrl+Alt+p" desktop-defaults-run -t htop
+#key "Ctrl+Shift+p" desktop-defaults-run -r -t htop
+#key "Ctrl+Alt+a" desktop-defaults-run -a
+#key "Ctrl+Alt+s" antixscreenshot.sh
+#key "Ctrl+Alt+d" gksu synaptic
+#key "Ctrl+Alt+f" desktop-defaults-run -fm
+#key "Ctrl+Shift+f" desktop-defaults-run -r -fm
+#key "Ctrl+Alt+g" desktop-defaults-run -te
+#key "Ctrl+Shift+g" desktop-defaults-run -r -te
+#key "Ctrl+Alt+h" desktop-defaults-run -b file:/usr/share/antiX/FAQ/index.html
+#key "Ctrl+Alt+k" desktop-session-exit
+#key "Ctrl+Alt+l" xlock
+#key "Ctrl+Alt+z" grsync
+#key "Ctrl+Alt+x" xkill
+#key "Ctrl+Alt+c" antixcc.sh
+#key "Ctrl+Alt+v" desktop-defaults-run -v
+#key "Ctrl+Alt+b" desktop-defaults-run -b
+
+
+#Set Volume
+key "Alt+Ctrl+KP_Divide" amixer -c 0 set Master 5-# lower volume
+key "Alt+Ctrl+KP_Multiply" amixer -c 0 set Master 5+ # raise volume
+key "Alt+Ctrl+KP_Add" amixer sset Master toggle # mute on/off
+
+# F* keys examples
+# Open a terminal
+#key "F1" desktop-defaults-run -t
+# Open a dialog to run programs	
+#key "F2" gexec	
+# Open file manager			
+#key "F3" desktop-defaults-run -fm
+# Open browser
+#key "F4" desktop-defaults-run -b
+# Open antiX control centre	 
+#key "F5" antixcc.sh
+# Take a screenshot			
+#key "F6" antixscreenshot.sh		

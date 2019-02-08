@@ -1,0 +1,6 @@
+# This is a default toolbar definition file for IceWM
+#
+# Place your personal variant in $HOME/.icewm directory.
+
+### Commonly used applications
+prog "Unplug Removable Device" /usr/share/icons/Faenza-Cupertino-mini/devices/32/drive-removable-media-usb.png unplugdrive.sh
