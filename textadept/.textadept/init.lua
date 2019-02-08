@@ -25,7 +25,7 @@ keys.co = textredux.fs.open_file
 keys.cu = function () keys.co(_USERHOME .. "/") end
 
 if not CURSES then
-	keys.car = reset
+	keys.f11 = reset
 end
 
 -- Load extra snippets to the Lua snippets table; 
@@ -89,5 +89,8 @@ buffer.indentation_guides = buffer.IV_NONE
 -- Disable code folding and hide the fold margin
 buffer.property.fold = "0"
 buffer.margin_width_n[2] = 0
+
+-- Wrap long lines into view
+--buffer.wrap_mode = buffer.WRAP_WHITESPACE
 
 keys.f12 = function () os.spawn("textadept -f -u '/home/brandon/.textadept-blank'") end
