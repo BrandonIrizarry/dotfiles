@@ -82,8 +82,8 @@ Win95Keys=1
 
 ModSuperIsCtrlAlt=0
 
-#KeyWinSize="Super+z"
-#KeyWinMove="Super+period"
+KeyWinSize="Super+comma" # new
+KeyWinMove="Super+period"
 KeyWinMaximizeVert="Super+v"
 KeyWinClose="Super+c" # new
 KeyWinArrangeN="Ctrl+Alt+KP_8"
