@@ -12,12 +12,13 @@ hc emit_hook reload
 HERB=~/.config/herbstluftwm
 
 #Set wallpaper/background
-xsetroot -solid '#444444'
+#xsetroot -solid '#444444'
+feh --bg-fill /usr/share/wallpaper/Wooden.jpg &
 
 # autostart daemons'n'stuff
 # spacefm -d &
-# leafpad $HERB/help.txt &
-editor $HERB/autostart &
+desktop-defaults-run -te $HERB/autostart &
+# compton -b -i 0.7
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -27,10 +28,12 @@ Mod=Mod4
 hc keybind $Mod-Shift-q spawn desktop-session-exit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-c close
+hc keybind $Mod-Shift-b spawn sudo persist-config --shutdown --command reboot   
+hc keybind Menu fullscreen toggle
 
 # Open apps
-hc keybind $Mod-Return spawn x-terminal-emulator
-hc keybind $Mod-d spawn dmenu_run
+hc keybind $Mod-Return spawn desktop-defaults-run -t
+hc keybind $Mod-d spawn dmenu_run 
 
 # screenshots
 hc keybind $Mod-F12 spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
@@ -56,14 +59,16 @@ done
 # cycle through tags
 hc keybind $Mod-period use_index +1 --skip-visible
 hc keybind $Mod-comma  use_index -1 --skip-visible
+hc keybind $Mod-Right use_index +1 --skip-visible
+hc keybind $Mod-Left  use_index -1 --skip-visible
 
 # layouting
 hc keybind $Mod-r remove
 hc keybind $Mod-space cycle_layout 1
-hc keybind $Mod-u split vertical 0.7
-hc keybind $Mod-Shift-u split vertical 0.5
-hc keybind $Mod-o split horizontal 0.7
-hc keybind $Mod-Shift-o split horizontal 0.5
+hc keybind $Mod-u split vertical 0.5
+hc keybind $Mod-Shift-u split vertical 0.3
+hc keybind $Mod-o split horizontal 0.5
+hc keybind $Mod-Shift-o split horizontal 0.3
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
@@ -88,6 +93,7 @@ hc mousebind $Mod-Button3 zoom
 hc keybind $Mod-BackSpace   cycle_monitor
 hc keybind $Mod-Tab         cycle_all +1
 hc keybind $Mod-Shift-Tab   cycle_all -1
+#hc keybind $Mod-c cycle
 hc keybind $Mod-h focus left
 hc keybind $Mod-j focus down
 hc keybind $Mod-k focus up
@@ -99,27 +105,25 @@ hc keybind $Mod-Shift-k shift up
 hc keybind $Mod-Shift-l shift right
 
 # colors
-# Important for contrast in moving across windows and frames.
-hc set frame_border_active_color '#203B9C'
-hc set window_border_active_color '#75F2E5'
-
-hc set frame_border_normal_color '#101010'
-hc set frame_bg_normal_color '#565656'
-hc set frame_bg_active_color '#444444'
-hc set frame_border_width 2
+hc set frame_border_active_color '#10ff00'
+hc set frame_border_normal_color '#000000'
+#hc set frame_bg_normal_color '#565656'
+#hc set frame_bg_active_color '#444444'
+hc set frame_border_width 5
 hc set window_border_width 2
 hc set window_border_inner_width 0
-hc set window_border_normal_color '#454545'
-
-hc set always_show_frame 0
-hc set frame_gap 0
-
+hc set window_border_normal_color '#000000'
+hc set window_border_active_color '#00ffff'
+hc set always_show_frame 1
+hc set frame_gap 5
 # add overlapping window borders
-hc set window_gap -0
+hc set window_gap 10
 hc set frame_padding 0
 hc set smart_window_surroundings 1
-hc set smart_frame_surroundings 0
+hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
+#hc set frame_active_opacity 100
+#hc set frame_normal_opacity 40
 
 # rules
 hc unrule -F
@@ -130,8 +134,8 @@ hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole|X-terminal-emulator)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off
-hc rule class=XClock pseudotile=on focus=on
-hc rule class=Desktop-session-exit.py pseudotile=on
+hc rule class=Desktop-session-exit.py focus=on pseudotile=on
+#hc rule class=Textadept focus=on
 
 # unlock, just to be sure
 hc unlock
@@ -152,4 +156,4 @@ panel=~/.config/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     $panel $monitor &
-done  
+done
