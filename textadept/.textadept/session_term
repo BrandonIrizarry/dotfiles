@@ -1,9 +1,6 @@
-buffer: 2021 2021 51 /home/brandon/.textadept/init.lua
+buffer: 42 42 0 /home/brandon/dotfiles/textadept/.gitignore
 bookmarks: 
-buffer: 0 0 480 /home/brandon/.textadept/modules/textadept/keys.lua
-bookmarks: 
-size: false 96 37
-view1: 2
+size: false 96 24
+view1: 1
 current_view: 1
-recent: /home/brandon/.textadept/modules/textadept/keys.lua
-recent: /home/brandon/.textadept/init.lua
+recent: /home/brandon/dotfiles/textadept/.gitignore
