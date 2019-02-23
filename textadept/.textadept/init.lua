@@ -53,7 +53,7 @@ end
 --]]
 
 -- Confirm saves with a dialog box.
-events.connect(events.FILE_BEFORE_SAVE, function (filename)
+events.connect(events.FILE_AFTER_SAVE, function (filename)
 	local basename = filename:match("^.+/(.+)")
 	alert(1, string.format("Wrote file '%s' to disk!", basename))
 end)
@@ -65,10 +65,10 @@ end)
 
 
 if CURSES then
-    buffer:set_theme("term")
+    buffer:set_theme("term-bci")
 else
-	local FONT_TABLE = {font = "Inconsolata", fontsize = 15}
-	local THEME = "dark"
+	local FONT_TABLE = { font="Courier", fontsize = 15}
+	local THEME	= "dark"
 
 	buffer:set_theme(THEME, FONT_TABLE)
 end
