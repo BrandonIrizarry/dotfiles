@@ -94,3 +94,14 @@ buffer.margin_width_n[2] = 0
 --buffer.wrap_mode = buffer.WRAP_WHITESPACE
 
 keys.f12 = function () os.spawn("textadept -f -u '/home/brandon/.textadept-blank'") end
+
+
+
+function jump (line_no)
+	buffer:goto_line(line_no - 1)
+end
+
+--package.path = "/home/brandon/.textadept/textadept-vi/?.lua;" .. package.path
+--package.cpath = "/home/brandon/.textadept/textadept-vi/?.so;" .. package.cpath
+
+--_G.vi_mode = require "vi_mode"
