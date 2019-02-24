@@ -101,6 +101,11 @@ function jump (line_no)
 	buffer:goto_line(line_no - 1)
 end
 
+if CURSES then 
+	keys.f2 = 
+		function () ui.command_entry.enter_mode("lua_command", "lua") end 
+end
+
 --package.path = "/home/brandon/.textadept/textadept-vi/?.lua;" .. package.path
 --package.cpath = "/home/brandon/.textadept/textadept-vi/?.so;" .. package.cpath
 
