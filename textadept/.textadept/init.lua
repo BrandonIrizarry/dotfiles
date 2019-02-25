@@ -18,11 +18,11 @@ end
 
 --open_file_or_new = require("open_file_or_new").open_file_or_new
 --keys.co = open_file_or_new
-keys.cu = function () open_file_or_new(_USERHOME .. "/") end
+--keys.cu = function () open_file_or_new(_USERHOME .. "/") end
 
-textredux = require 'textredux'
-keys.co = textredux.fs.open_file
-keys.cu = function () keys.co(_USERHOME .. "/") end
+--textredux = require 'textredux'
+--keys.co = textredux.fs.open_file
+--keys.cu = function () keys.co(_USERHOME .. "/") end
 
 if not CURSES then
 	keys.f11 = reset
