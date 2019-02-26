@@ -106,7 +106,11 @@ if CURSES then
 		function () ui.command_entry.enter_mode("lua_command", "lua") end 
 end
 
---package.path = "/home/brandon/.textadept/textadept-vi/?.lua;" .. package.path
---package.cpath = "/home/brandon/.textadept/textadept-vi/?.so;" .. package.cpath
 
---_G.vi_mode = require "vi_mode"
+function send_selection_to_tmux ()
+	local text = buffer:get_sel_text()
+	os.spawn(string.format("tmux set-buffer '%s\n'", text))
+	os.spawn("tmux paste-buffer -d")
+end
+
+keys.ct = send_selection_to_tmux

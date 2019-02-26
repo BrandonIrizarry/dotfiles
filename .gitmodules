@@ -1,9 +1,0 @@
-[submodule "textadept/.textadept/abaez-common"]
-	path = textadept/.textadept/abaez-common
-	url = https://github.com/abaez/ta-common
-[submodule "textadept/.textadept/base16-themes"]
-	path = textadept/.textadept/base16-themes
-	url = https://github.com/rgieseke/textadept-themes
-[submodule "textadept/.textadept/modules/textredux"]
-	path = textadept/.textadept/modules/textredux
-	url = https://github.com/rgieseke/textredux
