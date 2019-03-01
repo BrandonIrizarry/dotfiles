@@ -28,7 +28,7 @@ property['color.light_magenta'] = 0xFF00FF
 property['color.light_white'] = 0xFFFFFF
 
 -- Predefined styles.
-property['style.default'] = 'fore:$(color.white),back:$(color.black)'
+property['style.default'] = 'fore:$(color.white),back:$(color.light_black)'
 --property['style.linenumber'] =
 property['style.bracelight'] = 'fore:$(color.black),back:$(color.white)'
 --property['style.controlchar'] =
@@ -63,7 +63,7 @@ property['style.whitespace'] = ''
 -- Caret and Selection Styles.
 --buffer:set_sel_fore(true, property_int['color.white'])
 --buffer:set_sel_back(true, property_int['color.black'])
---buffer.caret_fore = property_int['color.black']
+--buffer.caret_fore = property_int['color.magenta']
 --buffer.caret_line_back =
 
 -- Fold Margin.

@@ -67,7 +67,7 @@ end)
 if CURSES then
     buffer:set_theme("term-bci")
 else
-	local FONT_TABLE = { font="Courier", fontsize = 15}
+	local FONT_TABLE = { font="Inconsolata", fontsize = 15}
 	local THEME	= "dark"
 
 	buffer:set_theme(THEME, FONT_TABLE)
@@ -107,6 +107,7 @@ if CURSES then
 end
 
 
+--[[
 function send_selection_to_tmux ()
 	local text = buffer:get_sel_text()
 	os.spawn(string.format("tmux set-buffer '%s\n'", text))
@@ -114,3 +115,9 @@ function send_selection_to_tmux ()
 end
 
 keys.ct = send_selection_to_tmux
+--]]
+
+--[[
+	poetry in motion
+--]]
+
