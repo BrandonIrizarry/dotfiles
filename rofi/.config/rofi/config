@@ -1,0 +1,5 @@
+rofi.theme: gruvbox-light-soft
+rofi.modi: drun,run,ssh,window
+rofi.run-command: {cmd}
+rofi.terminal: rofi-sensible-terminal
+rofi.run-shell-command: {terminal} -x {cmd}
