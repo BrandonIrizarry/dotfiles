@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<JWM>
+<!-- Tray at the bottom. -->
+	<Tray  x="0" y="0" width="-1" height="25" autohide="off" halign="center" valign="bottom" layout="horizontal">          
+		<TrayButton icon="/usr/share/icons/obarun.png" >root:2</TrayButton>
+		
+		<Spacer width="5"/>
+		
+		<!-- tasklist -->
+		<TaskList maxwidth="0" border="false"/>
+		<Spacer width="5"/>
+		
+		<!-- launcher -->
+		<TrayButton icon="midori">exec:midori</TrayButton>
+		<Spacer width="2"/>
+		<TrayButton icon="spacefm">root:3</TrayButton>
+		<Spacer width="2"/>
+		<TrayButton icon="geany">root:4</TrayButton>
+		<Spacer width="2"/>
+		<TrayButton icon="terminator">exec:terminator</TrayButton>
+		<Spacer width="5"/>
+		
+		<!-- pager -->
+		<Pager labeled="true"/>
+		<Spacer width="5"/>
+		<!-- dock -->        
+		<Dock/>
+		<Spacer width="5"/>
+		
+		<!-- clock -->
+		<Clock format="%H : %M">exec:gsimplecal</Clock>
+		<Spacer width="5"/>
+	</Tray>
+</JWM>
+

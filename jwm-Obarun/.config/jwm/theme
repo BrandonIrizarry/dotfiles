@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<JWM>
+	<Font>Liberation Sans-9</Font>
+	<!-- Window button -->
+	<ButtonClose>/usr/share/themes/Arc/unity/close.svg</ButtonClose>
+	<ButtonMax>/usr/share/themes/Arc/unity/unmaximize_dash_prelight.svg</ButtonMax>
+	<ButtonMaxActive>/usr/share/themes/Arc/unity/maximize_dash_prelight.svg</ButtonMaxActive>
+	<ButtonMin>/usr/share/themes/Arc/unity/minimize_dash_prelight.svg</ButtonMin>
+    <!-- Visual Style Window. -->
+    <WindowStyle decorations="flat">
+        
+        <Width>1</Width>
+        <Height>25</Height>
+        <Corner>5</Corner>
+        <Foreground>#444444</Foreground>
+        <Background>#444444</Background>
+        <Outline>#444444</Outline>
+        <Active>
+            <Foreground>white</Foreground>
+            <Background>#444444</Background>
+            <Outline>#444444</Outline>
+        </Active>
+        <Opacity>1</Opacity> 
+    </WindowStyle>
+
+    <!-- Visual Style Tray. -->
+    <TrayStyle decorations="flat">
+       
+        <Background>#444444</Background>
+        <Foreground>white</Foreground>
+        <Active>
+            <Foreground>white</Foreground>
+            <Background>#25aedf</Background>
+        </Active>
+        <Opacity>1</Opacity> 
+    </TrayStyle>    
+
+    <!-- Visual Style Pager. -->
+    <PagerStyle>
+		
+        <Outline>#444444</Outline>
+        <Text>white</Text>
+        <Foreground>#444444</Foreground>
+        <Background>#111111</Background>
+        <Active>
+            <Foreground>#25aedf</Foreground>
+            <Background>#595959</Background>
+        </Active>
+    </PagerStyle>
+
+    <!-- Visual Style Menu. -->
+    <MenuStyle>
+        
+        <Foreground>white</Foreground>
+        <Background>#444444</Background>
+        <Active>
+            <Foreground>white</Foreground>
+            <Background>#25aedf</Background>
+        </Active>
+        <Opacity>0.9</Opacity> 
+    </MenuStyle>
+
+    <!-- Visual Style Pop. -->
+    <PopupStyle>
+        
+        <Outline>#FFFFFF</Outline>
+        <Foreground>#000000</Foreground>
+        <Background>#FFFFFF</Background>
+    </PopupStyle>
+    
+</JWM>

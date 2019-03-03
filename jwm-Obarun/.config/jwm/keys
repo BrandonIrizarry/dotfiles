@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<JWM>
+
+    <!-- Key bindings. -->
+    <Key key="Up">up</Key>
+    <Key key="Down">down</Key>
+    <Key key="Right">right</Key>
+    <Key key="Left">left</Key>
+    <Key key="h">left</Key>
+    <Key key="j">down</Key>
+    <Key key="k">up</Key>
+    <Key key="l">right</Key>
+    <Key key="Return">select</Key>
+    <Key key="Escape">escape</Key>
+    
+    <!-- Key applications. -->
+	<Key mask="A" key="space">exec:rofi -show drun</Key>
+	<Key mask="A" key="F2">root:2</Key>
+	<!-- Key toggle. -->
+    <Key mask="CA" key="Up">maxtop</Key>
+    <Key mask="CA" key="Down">maxbottom</Key>
+    <Key mask="CA" key="Left">maxleft</Key>
+    <Key mask="CA" key="Right">maxright</Key>
+    
+    <!-- Key window. -->    
+    <Key mask="A" key="Tab">nextstacked</Key>
+    <Key mask="A" key="F4">close</Key>
+    <Key mask="A" key="#">desktop#</Key>
+    <Key mask="A" key="F5">window</Key>
+    <Key mask="A" key="F10">maximize</Key>
+    <Key mask="A" key="Right">rdesktop</Key>
+    <Key mask="A" key="Left">ldesktop</Key>
+    <Key mask="A" key="Up">udesktop</Key>
+    <Key mask="A" key="Down">ddesktop</Key>
+    
+</JWM>
+
