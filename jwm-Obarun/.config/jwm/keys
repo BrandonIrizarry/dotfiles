@@ -12,10 +12,14 @@
     <Key key="l">right</Key>
     <Key key="Return">select</Key>
     <Key key="Escape">escape</Key>
+	<Key key="Menu">restart</Key>
     
     <!-- Key applications. -->
 	<Key mask="A" key="space">exec:rofi -show drun</Key>
 	<Key mask="A" key="F2">root:2</Key>
+	<Key mask="4" key="Return">exec:xterm</Key>
+	
+	
 	<!-- Key toggle. -->
     <Key mask="CA" key="Up">maxtop</Key>
     <Key mask="CA" key="Down">maxbottom</Key>
