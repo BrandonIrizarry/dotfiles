@@ -2,7 +2,7 @@
 <JWM>
 <!-- Tray at the bottom. -->
 	<Tray  x="0" y="0" width="-1" height="25" autohide="off" halign="center" valign="bottom" layout="horizontal">          
-		<TrayButton icon="/usr/share/icons/obarun.png" >root:2</TrayButton>
+		<TrayButton icon="/usr/share/icons/obarun.png" >root:1</TrayButton>
 		
 		<Spacer width="5"/>
 		
@@ -11,13 +11,15 @@
 		<Spacer width="5"/>
 		
 		<!-- launcher -->
-		<TrayButton icon="midori">exec:midori</TrayButton>
+		<TrayButton icon="luakit">exec:luakit</TrayButton>
 		<Spacer width="2"/>
-		<TrayButton icon="spacefm">root:3</TrayButton>
+		<TrayButton icon="firefox">exec:firefox</TrayButton>
 		<Spacer width="2"/>
-		<TrayButton icon="geany">root:4</TrayButton>
+		<!-- <TrayButton icon="spacefm">root:4</TrayButton>
+		<Spacer width="2"/> -->
+		<TrayButton icon="textadept">root:3</TrayButton>
 		<Spacer width="2"/>
-		<TrayButton icon="terminator">exec:terminator</TrayButton>
+		<TrayButton icon="xterm">exec:xterm</TrayButton>
 		<Spacer width="5"/>
 		
 		<!-- pager -->
@@ -28,7 +30,7 @@
 		<Spacer width="5"/>
 		
 		<!-- clock -->
-		<Clock format="%H : %M">exec:gsimplecal</Clock>
+		<Clock format="%l:%M%P">exec:gsimplecal</Clock>
 		<Spacer width="5"/>
 	</Tray>
 </JWM>

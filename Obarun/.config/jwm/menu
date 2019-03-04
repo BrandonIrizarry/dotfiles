@@ -2,7 +2,7 @@
 <JWM>
 <!-- The root menu. -->
 
-	<RootMenu onroot="2">
+	<RootMenu onroot="1">
 		<Include>exec: xdgmenumaker -n -i -f jwm</Include>
 		<Separator/>
 		<Menu icon="gnome-system" label="JWM Manager">
@@ -27,14 +27,18 @@
 		<Program icon="exit" label="Exit">obshutdown -c ~/.config/obshut/exit.rc</Program>
 	</RootMenu>
 	
-	<RootMenu onroot="3">
+	
+	<!--
+	<RootMenu onroot="4">
 		 <Program label="Spacefm">spacefm</Program>
 		 <Program label="Spacefm root">sudo -A spacefm</Program>
 	</RootMenu>
+-->
 	
-	<RootMenu onroot="4">
-		<Program label="Geany">geany</Program>
-		<Program label="Geany root">sudo -A geany</Program>
+	<RootMenu onroot="3">
+		<Program label="Textadept">textadept</Program>
+		<Program label="Textadept root">sudo -A textadept</Program>
 	</RootMenu>
+	
 </JWM>
 

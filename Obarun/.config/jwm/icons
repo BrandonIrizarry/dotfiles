@@ -319,4 +319,7 @@
 	<IconPath>/usr/share/icons/Faenza/emblems/8</IconPath>
 	<IconPath>/usr/share/icons/Faenza/emblems/8</IconPath>
 	<IconPath>/usr/share/icons/Faenza/emblems/8</IconPath>
+	
+	-- Needed for Luakit.
+	<IconPath>/usr/share/pixmaps</IconPath>
 </JWM>

@@ -16,7 +16,7 @@
     
     <!-- Key applications. -->
 	<Key mask="A" key="space">exec:rofi -show drun</Key>
-	<Key mask="A" key="F2">root:2</Key>
+	<Key mask="A" key="F2">root:1</Key>
 	<Key mask="4" key="Return">exec:xterm</Key>
 	
 	
