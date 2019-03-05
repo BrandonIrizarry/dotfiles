@@ -73,7 +73,7 @@ else
 	buffer:set_theme(THEME, FONT_TABLE)
 end
 
-keys.cT = function () os.spawn("lxterminal", buffer.filename:match("^(.*)/")) end
+keys.cT = function () os.spawn("xterm", buffer.filename:match("^(.*)/")) end
 
 -- Disable character autopairing with typeover
 textadept.editing.auto_pairs = nil
