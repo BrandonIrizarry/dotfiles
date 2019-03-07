@@ -64,7 +64,7 @@ property['style.whitespace'] = ''
 
 -- Caret and Selection Styles.
 buffer:set_sel_fore(true, property_int['color.white'])
-buffer:set_sel_back(true, property_int['color.blue'])
+buffer:set_sel_back(true, property_int['color.full_blue'])
 --buffer.sel_alpha =
 buffer.caret_fore = property_int['color.white']
 buffer.caret_line_back = property_int['color.blue']
