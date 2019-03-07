@@ -18,6 +18,7 @@
 	<Key mask="A" key="space">exec:rofi -show drun</Key>
 	<Key mask="A" key="F2">root:1</Key>
 	<Key mask="4" key="Return">exec:xterm</Key>
+	<Key mask="4S" key="Return">exec:textadept</Key>
 	
 	
 	<!-- Key toggle. -->
