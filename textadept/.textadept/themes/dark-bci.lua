@@ -18,6 +18,9 @@ property['color.full_blue'] = 0xFF0000
 property['color.full_magenta'] = 0xFF00FF
 property['color.full_yellow'] = 0x00FFFF
 
+-- Extra colors.
+property['color.papaya_whip'] = 0xD5EFFF
+
 -- Default font.
 property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 10
 if WIN32 then
@@ -29,13 +32,12 @@ end
 -- Predefined styles.
 property['style.default'] = 'font:$(font),size:$(fontsize),'..
                             'fore:$(color.white),back:$(color.black)'
-property['style.linenumber'] = 'fore:$(color.white),back:$(color.black)'
+property['style.linenumber'] = 'fore:$(color.magenta),back:$(color.black)'
 --property['style.controlchar'] =
 property['style.indentguide'] = 'fore:$(color.white)'
 property['style.calltip'] = 'fore:$(color.white),back:$(color.cyan)'
 property['style.folddisplaytext'] = 'fore:$(color.white)'
 
--- Token styles.
 -- Token styles.
 property['style.class'] = 'fore:$(color.yellow)'
 property['style.comment'] = 'fore:$(color.grey)'
@@ -63,11 +65,14 @@ property['style.whitespace'] = ''
 --buffer.additional_caret_fore =
 
 -- Caret and Selection Styles.
+buffer.caret_style = buffer.CARETSTYLE_BLOCK
+buffer.caret_period = 0
+
 buffer:set_sel_fore(true, property_int['color.white'])
-buffer:set_sel_back(true, property_int['color.full_blue'])
+buffer:set_sel_back(true, property_int['color.blue'])
 --buffer.sel_alpha =
 buffer.caret_fore = property_int['color.white']
-buffer.caret_line_back = property_int['color.blue']
+buffer.caret_line_back = property_int['color.black']
 --buffer.caret_line_back_alpha =
 
 -- Fold Margin.

@@ -67,7 +67,7 @@ end)
 if CURSES then
     buffer:set_theme("term-bci")
 else
-	local FONT_TABLE = { font="Fira Code", fontsize = 15}
+	local FONT_TABLE = { font="Fira Mono", fontsize = 15}
 	local THEME	= "dark-bci"
 
 	buffer:set_theme(THEME, FONT_TABLE)
