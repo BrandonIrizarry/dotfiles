@@ -17,6 +17,7 @@ property['color.full_white'] = 0xFFFFFF
 property['color.full_blue'] = 0xFF0000
 property['color.full_magenta'] = 0xFF00FF
 property['color.full_yellow'] = 0x00FFFF
+property['color.full_green'] = 0x00FF00
 
 -- Extra colors.
 property['color.papaya_whip'] = 0xD5EFFF
@@ -35,17 +36,17 @@ property['style.default'] = 'font:$(font),size:$(fontsize),'..
 property['style.linenumber'] = 'fore:$(color.magenta),back:$(color.black)'
 --property['style.controlchar'] =
 property['style.indentguide'] = 'fore:$(color.white)'
-property['style.calltip'] = 'fore:$(color.white),back:$(color.cyan)'
+property['style.calltip'] = 'fore:$(color.white),back:$(color.black)'
 property['style.folddisplaytext'] = 'fore:$(color.white)'
 
 -- Token styles.
 property['style.class'] = 'fore:$(color.yellow)'
 property['style.comment'] = 'fore:$(color.grey)'
-property['style.constant'] = 'fore:$(color.red)'
+property['style.constant'] = 'fore:$(color.full_green)'
 property['style.embedded'] = '$(style.keyword),back:$(color.black)'
 property['style.error'] = 'fore:$(color.red),bold'
 property['style.function'] = 'fore:$(color.full_blue)'
-property['style.identifier'] = ''
+property['style.identifier'] = 'fore:$(color.white)'
 property['style.keyword'] = 'fore:$(color.full_white)'
 property['style.label'] = 'fore:$(color.red),bold'
 property['style.number'] = 'fore:$(color.cyan)'
@@ -102,10 +103,15 @@ local INDIC_HIGHLIGHT = textadept.editing.INDIC_HIGHLIGHT
 buffer.indic_fore[INDIC_HIGHLIGHT] = property_int['color.yellow']
 buffer.indic_alpha[INDIC_HIGHLIGHT] = 255
 local INDIC_PLACEHOLDER = textadept.snippets.INDIC_PLACEHOLDER
-buffer.indic_fore[INDIC_PLACEHOLDER] = property_int['color.white']
+buffer.indic_fore[INDIC_PLACEHOLDER] = property_int['color.magenta']
+buffer.indic_style[INDIC_PLACEHOLDER] = buffer.INDIC_STRAIGHTBOX
+buffer.indic_alpha[INDIC_PLACEHOLDER] = 100
+buffer.indic_outline_alpha[INDIC_PLACEHOLDER] = 255
 
 -- Call tips.
 --buffer.call_tip_fore_hlt = property_int['color.light_blue']
 
 -- Long Lines.
+buffer.edge_mode = buffer.EDGE_LINE
 buffer.edge_colour = property_int['color.white']
+buffer.edge_column = 80
