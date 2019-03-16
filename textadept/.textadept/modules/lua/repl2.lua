@@ -60,7 +60,7 @@ local function new_repl()
 	buffer.margin_width_n[1] = 20
 	--]]
 	
-	--[[
+	---[[
 	events.connect(events.UPDATE_UI, function ()
 		if buffer._type == "[Lua REPL]" then
 			if buffer.current_pos < START then
@@ -133,12 +133,10 @@ table.insert(textadept.menu.menubar[_L['_Tools']], {'Lua REPL', new_repl})
 keys["c#"] = new_repl
 
 -- Evaluate REPL on newline.
-keys.lua['cj'] = function()
+keys['cj'] = function()
   if buffer._type ~= '[Lua REPL]' then return false end -- propagate
   evaluate_repl()
 end
-
-
 
 --[[
 events.connect(events.KEYPRESS, function (c)
