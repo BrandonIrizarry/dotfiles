@@ -106,18 +106,35 @@ if CURSES then
 		function () ui.command_entry.enter_mode("lua_command", "lua") end 
 end
 
+events.connect(events.LEXER_LOADED, function(lexer)
+	if lexer == 'lua' then 
+		require('lua.repl2') 
+	end
+end)
 
---[[
-function send_selection_to_tmux ()
-	local text = buffer:get_sel_text()
-	os.spawn(string.format("tmux set-buffer '%s\n'", text))
-	os.spawn("tmux paste-buffer -d")
-end
 
-keys.ct = send_selection_to_tmux
---]]
+-- For now, this is our way of making the Message Buffer not prompt for a save
+-- Might have to be KEYPRESS.
+events.connect(events.UPDATE_UI, function (x)
+	if buffer._type == "[Message Buffer]" then
+		buffer:set_save_point()
+	end
+end)
 
---[[
-	poetry in motion
---]]
+args.register('-w', '--wait', 1, function(filename)
+  textadept.session.save_on_quit = false
+  io.open_file(filename)
+  filename = lfs.abspath(filename)
+  events.connect(events.BUFFER_DELETED, function()
+    local found = false
+    for i = 1, #_BUFFERS do
+      if _BUFFERS[i].filename == filename then
+        found = true
+        break
+      end
+    end
+    if not found then quit() end
+  end)
+end, "Opens the given file and quits after closing that file")
+
 
