@@ -16,7 +16,8 @@ local modules = {
 	"lua.repl2", 
 	"args",
 	"misc_events",
-	"misc_keys"}
+	"misc_keys",
+	"lua-pattern-find"}
 
 local data = {}
 
@@ -39,6 +40,3 @@ alert = data.alert.alert
 for shorthand, snippet in pairs(data.es_global) do
   snippets[shorthand] = snippet
 end
-
-
-	
