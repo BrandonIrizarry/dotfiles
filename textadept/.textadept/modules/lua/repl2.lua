@@ -6,6 +6,8 @@ Original license:
 Copyright 2014-2019 Mitchell mitchell.att.foicica.com. See LICENSE.
 ]]
 
+local M = {}
+
 -- A special environment for a Lua REPL.
 -- It has an `__index` metafield for accessing Textadept's global environment.
 local env
@@ -15,7 +17,7 @@ local START
 
 
 -- Creates a Lua REPL in a new buffer.
-local function new_repl()
+function M.new_repl()
 	buffer.new()._type = "[Lua REPL]"
 	buffer:set_lexer("lua")
 	buffer:add_text("-- Lua REPL (Variation)")
@@ -60,7 +62,7 @@ local function new_repl()
 	buffer.margin_width_n[1] = 20
 	--]]
 	
-	---[[
+	--[[
 	events.connect(events.UPDATE_UI, function ()
 		if buffer._type == "[Lua REPL]" then
 			if buffer.current_pos < START then
@@ -75,7 +77,7 @@ end
 -- lines.
 -- If the current line has a syntax error, it is ignored and treated as a line
 -- continuation.
-local function evaluate_repl()
+function M.evaluate_repl()
 	local code, line
 	
 	-- use line as inputreset
@@ -124,25 +126,4 @@ local function evaluate_repl()
 	buffer:set_save_point()
 end
 
--- Add REPL to Tools menu.
-table.insert(textadept.menu.menubar[_L['_Tools']], {''})
-table.insert(textadept.menu.menubar[_L['_Tools']], {'Lua REPL', new_repl})
---textadept.menu.menubar = nil -- re-hide
-
--- Set a hotkey for the REPL.
-keys["c#"] = new_repl
-
--- Evaluate REPL on newline.
-keys['cj'] = function()
-  if buffer._type ~= '[Lua REPL]' then return false end -- propagate
-  evaluate_repl()
-end
-
---[[
-events.connect(events.KEYPRESS, function (c)
-	if buffer._type == "[Lua REPL]" then
-		alert(1, c)
-		return c
-	end
-end)
---]]
+return M
