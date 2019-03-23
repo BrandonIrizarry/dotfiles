@@ -6,8 +6,7 @@
   Good also for inspecting data.
 ]]
 
-return { 
-  alert = function (timeout, ...)
+return function (timeout, ...)
     local args = table.pack(...)
     
     for i=1, args.n do
@@ -21,5 +20,4 @@ return {
       text = data,
       timeout = timeout,
     }
-  end,
-}
+end

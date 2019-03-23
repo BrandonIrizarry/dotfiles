@@ -11,23 +11,40 @@ Charles Jennens and George Frideric Handel (1685-1759)
 
 
 local modules = {
+	-- "theming" has to be first, if we want to inspect module
+	-- loading with 'ui.print', and not break things.
+	
+	-- Stateful; just requiring them is enough to activate what they do.
+	"theming",  
+	"misc_keys",
+	"custom_cli_flags",
+	
+	-- Non-stateful; they return something that their eventual functionality
+	-- will depend on.
 	"alert", 
-	"theming", 
 	"es_global", 
 	"lua.repl2", 
-	"custom_cli_flags",
 	"misc_events",
-	"misc_keys",
 	"lua-pattern-find",
-	"paste_reindent"}
+	"paste_reindent",
+	"file_browser",
+	"search",
+}
 
 local data = {}
 
 for _, mod in ipairs(modules) do
 	local status, result = pcall(require, mod)
 	
+	-- This print statement tells me what modules return something
+	-- other than 'true'.
+	--ui.print(string.format("%-20s%30s", tostring(mod), tostring(result))) 
+
+	
+	-- We could, in some cases, just abort the entire config,
+	-- to avoid some things loading and others not.
 	if not status then 
-		ui.print(result) 
+		ui.print(result)
 	else
 		data[mod] = result
 	end
@@ -52,29 +69,75 @@ events.connect(events.LEXER_LOADED, function(lexer)
 end)
 
 
--- Set global state from the modules:
+-- GLOBAL STATE BASED ON MODULES
 
--- Keybindings.
-keys["c#"] = data["lua.repl2"].new_repl
-keys.cv = data.paste_reindent
+keys.cl = {} -- initialize ctrl+l for keychains.
 
--- The function 'alert'.
-alert = data.alert.alert
+-- Enhance the menu.
+do
+	local new_repl = data["lua.repl2"].new_repl
+	table.insert(textadept.menu.menubar[_L['_Tools']], {''})
+	table.insert(textadept.menu.menubar[_L['_Tools']], {'Lua REPL', new_repl})
+end
+
+
+
 
 -- Global snippets.
 for shorthand, snippet in pairs(data.es_global) do
   snippets[shorthand] = snippet
 end
 
--- Modules that use an init method
--- Custom CLI flags for Textadept (--wait, etc.)
-data.custom_cli_flags.init()
-data.misc_events.init(alert)
+-- FILE BROWSER
+-- for now, use an inputbox, but may be better to 
+-- use something like the command entry file opener,
+-- but only look at directories.
+do
+	local fb = data.file_browser
+	
+	keys.cl.f = function ()
+		local button, user_inputs = 
+			ui.dialogs.inputbox {
+				title = "File Browser",
+				informative_text = {
+					"Open a project",
+					"Root directory",
+					"Project name",
+				},
+				text = {os.getenv("HOME"), "PIL"},
+			}
+			
+		
+		-- Sanitize the prefix
+		local prefix = io.open(tostring(user_inputs[1])) and user_inputs[1] or os.getenv("HOME")
+		local directory = string.format("%s/%s", prefix, user_inputs[2])
+		
+		-- User hits "OK" and directory actually exists.
+		local exists = io.open(directory)
+		
+		if button == 1 and exists then
+			fb.init(directory)
+		elseif button == 1 and not exists then
+			data.alert(nil, "No valid directory specified.")
+		end
+	end
+end
 
--- Enhance the menu.
-table.insert(textadept.menu.menubar[_L['_Tools']], {''})
-table.insert(textadept.menu.menubar[_L['_Tools']], {'Lua REPL', new_repl})
+-- SEARCH
+do
+	local g = data.search.goto_nearest_occurrence
+	keys.ck = function() g(false) end
+	keys.cK = function() g(true) end
+end
 
+-- Keybindings.
+keys["c#"] = data["lua.repl2"].new_repl
+keys.cv = data.paste_reindent
+
+
+
+-- Modules that depend on other modules, and therefore need an init method.
+data.misc_events.init(data.alert)
 
 -- FUNCTIONS TO BE ADDED/PLACED INTO MODULES.
 
@@ -97,61 +160,4 @@ function rename_in_place (new_name)
 	io.open_file(full_name)
 end
 
-function goto_nearest_occurrence(reverse)
 
-        local s = buffer.selection_start
-		local e = buffer.selection_end
-		
-        if s == e then
-                s = buffer:word_start_position(s)
-				e = buffer:word_end_position(s)
-        end
-		
-		-- Define our word to be searched for.
-        local word = buffer:text_range(s, e)
-		
-		-- No word is detected under cursor.
-        if word == '' then return end
-		
-		-- Search how we come across words.
-        --buffer.search_flags = buffer.FIND_WHOLEWORD + buffer.FIND_MATCHCASE
-		-- Ideally, we'd use Lua patterns or a regexp at this point, 
-		-- occasionally specifying if we want the search to be literal.
-		buffer.search_flags = buffer.FIND_MATCHCASE
-		
-        if reverse then
-				-- Search from just before beginning of the current occurrence,
-				-- to beginning of the buffer.
-                buffer.target_start = s - 1
-                buffer.target_end = 0
-        else
-				-- Search from just after the end of the current occurrence,
-				-- to the end of the buffer.
-                buffer.target_start = e + 1
-                buffer.target_end = buffer.length
-        end
-		
-		-- Wrap the search if the word wasn't found.
-		-- Perform the inverse action of either respective search.
-        if buffer:search_in_target(word) == -1 then
-                if reverse then
-                        buffer.target_start = buffer.length
-                        buffer.target_end = e + 1
-                else
-						
-                        buffer.target_start = 0
-                        buffer.target_end = s - 1
-                end
-				
-				-- Word still not found, oh well.
-                if buffer:search_in_target(word) == -1 then return end
-        end
-		
-		-- 'search_in_target' was successful, so these two quantities are set.
-		-- Therefore, set the selection based on them; have them define the
-		-- selection, and Jake's your uncle.
-        buffer:set_sel(buffer.target_start, buffer.target_end)
-end
-
-keys.ck = function() goto_nearest_occurrence(false) end
-keys.cK = function() goto_nearest_occurrence(true) end
