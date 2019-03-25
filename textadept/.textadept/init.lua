@@ -53,6 +53,31 @@ end
 -- Modules and global settings dependent on the lexer used.
 events.connect(events.LEXER_LOADED, function(lexer)
 
+	function enclose (start_line, end_line)
+		local buffer = buffer
+		local start_pos = buffer.line_indent_position[start_line - 1]
+		local end_pos = buffer.line_end_position[end_line - 1]
+		
+		-- Get the prefix and suffix of the current block-comment syntax.
+		local comment = textadept.editing.comment_string[buffer:get_lexer(true)] or ''
+		local prefix, suffix = comment:match('^([^|]+)|?([^|]*)$')
+
+		-- If there is no comment string syntax defined for this lexer, then abort.
+		if not prefix then return end
+		
+		-- Calculate the current level of indentation:
+		-- How much preceding whitespace is there?
+		local preceding = buffer:get_cur_line():match("^%s*")
+		
+		-- At this point, we have a prefix and suffix -
+		-- comment out the specified block.
+		buffer:begin_undo_action()
+		buffer:insert_text(end_pos, "\n" .. preceding .. suffix)
+		buffer:insert_text(start_pos, prefix .. "\n" .. preceding)
+		buffer:end_undo_action()
+	end
+		
+	
 	-- Lua lexer definitions.
 	if lexer == 'lua' then 
 		
@@ -65,6 +90,31 @@ events.connect(events.LEXER_LOADED, function(lexer)
 					TA_REPL.evaluate_repl()
 				end
 		end
+		
+		textadept.editing.comment_string.lua = "--[[|]]"
+		--[===[
+		keys.lua["c/"] = {
+			["0"] = function ()
+				textadept.editing.comment_string.lua = "--"
+				textadept.editing.block_comment()
+			end,
+			
+			["1"] = function ()
+				textadept.editing.comment_string.lua = "--[[|]]"
+				textadept.editing.block_comment()
+			end,
+			
+			["2"] = function ()
+				textadept.editing.comment_string.lua = "--[=[|]=]"
+				textadept.editing.block_comment()
+			end,
+			
+			["3"] = function ()
+				textadept.editing.comment_string.lua = "--[==[|]==]"
+				textadept.editing.block_comment()
+			end,
+		}
+	]===]
 	end
 end)
 
