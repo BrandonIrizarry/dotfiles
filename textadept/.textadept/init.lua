@@ -53,6 +53,7 @@ end
 -- Modules and global settings dependent on the lexer used.
 events.connect(events.LEXER_LOADED, function(lexer)
 
+	--[[
 	function enclose (start_line, end_line)
 		local buffer = buffer
 		local start_pos = buffer.line_indent_position[start_line - 1]
@@ -76,7 +77,7 @@ events.connect(events.LEXER_LOADED, function(lexer)
 		buffer:insert_text(start_pos, prefix .. "\n" .. preceding)
 		buffer:end_undo_action()
 	end
-		
+	--]]
 	
 	-- Lua lexer definitions.
 	if lexer == 'lua' then 
@@ -91,7 +92,9 @@ events.connect(events.LEXER_LOADED, function(lexer)
 				end
 		end
 		
-		textadept.editing.comment_string.lua = "--[[|]]"
+		-- Should only take effect for multilines.
+		--textadept.editing.comment_string.lua = "--[[|]]"
+		
 		--[===[
 		keys.lua["c/"] = {
 			["0"] = function ()
