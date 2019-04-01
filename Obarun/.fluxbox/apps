@@ -1,0 +1,13 @@
+[app] (name=fbrun)
+  [Position]	(CENTER)	{0 0}
+  [Layer]	{2}
+[end]
+[app] (name=xterm) (class=XTerm)
+  [Dimensions]	{68% 100%}
+  [Position]	(UPPERLEFT)	{14% 0%}
+  [Close]	{yes}
+[end]
+[app] (name=textadept) (class=Textadept)
+  [Dimensions]	{84% 55%}
+  [Close]	{yes}
+[end]
