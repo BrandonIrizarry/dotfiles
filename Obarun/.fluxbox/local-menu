@@ -36,6 +36,7 @@
       [exec]   (vi) {xterm -e vi} 
 	  [exec]   (textadept) {textadept}
 	  [exec]   (textadept-curses) {xterm -e textadept-curses}
+	  [exec]   (e3vi)	{xterm -e e3vi}
 [end]
 [submenu] (File utils)
       [exec]   (mc) {xterm -e mc} 

@@ -4,7 +4,7 @@
 [end]
 [app] (name=xterm) (class=XTerm)
   [Dimensions]	{68% 100%}
-  [Position]	(UPPERLEFT)	{14% 0%}
+  [Position]	(UPPERLEFT)	{19% 0%}
   [Close]	{yes}
 [end]
 [app] (name=textadept) (class=Textadept)

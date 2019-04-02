@@ -4,7 +4,7 @@ buffer: 0 0 0 /home/brandon/.fluxbox/init
 bookmarks: 
 buffer: 1783 1783 62 /home/brandon/.fluxbox/keys-old
 bookmarks: 
-buffer: 2416 2416 26 /home/brandon/.fluxbox/local-menu
+buffer: 1143 1143 25 /home/brandon/.fluxbox/local-menu
 bookmarks: 
 buffer: 89 89 0 /home/brandon/.fluxbox/overlay
 bookmarks: 
@@ -12,10 +12,8 @@ buffer: 1277 1277 10 /home/brandon/.fluxbox/keys
 bookmarks: 
 buffer: 336 336 9 /home/brandon/.fluxbox/startup
 bookmarks: 
-buffer: 0 0 8 /home/brandon/PIL/ch23/ex23-5.lua
-bookmarks: 
-size: false 1147 385
-view1: 8
+size: true 1366 720
+view1: 4
 current_view: 1
 recent: /home/brandon/PIL/ch23/ex23-5.lua
 recent: /home/brandon/.fluxbox/startup
