@@ -3,11 +3,11 @@
   [Layer]	{2}
 [end]
 [app] (name=xterm) (class=XTerm)
-  [Dimensions]	{49% 100%}
-  [Position]	(UPPERLEFT)	{34% 0%}
+  [Dimensions]	{71% 86%}
+  [Position]	(UPPERLEFT)	{25% 13%}
   [Close]	{yes}
 [end]
 [app] (name=textadept) (class=Textadept)
-  [Dimensions]	{73% 105%}
+  [Dimensions]	{75% 99%}
   [Close]	{yes}
 [end]

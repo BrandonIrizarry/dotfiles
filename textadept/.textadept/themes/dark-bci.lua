@@ -18,6 +18,7 @@ property['color.full_blue'] = 0xFF0000
 property['color.full_magenta'] = 0xFF00FF
 property['color.full_yellow'] = 0x00FFFF
 property['color.full_green'] = 0x00FF00
+property['color.full_red'] = 0x0000FF
 
 -- Extra colors.
 property['color.papaya_whip'] = 0xD5EFFF
@@ -27,7 +28,7 @@ property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 10
 if WIN32 then
   property['font'] = 'Courier New'
 elseif OSX then
-  property['font'], property['fontsize'] = 'Monaco', 12
+  property['font'], property['fontsresetize'] = 'Monaco', 12
 end
 
 -- Predefined styles.
@@ -44,11 +45,11 @@ property['style.class'] = 'fore:$(color.yellow)'
 property['style.comment'] = 'fore:$(color.grey)'
 property['style.constant'] = 'fore:$(color.full_green)'
 property['style.embedded'] = '$(style.keyword),back:$(color.black)'
-property['style.error'] = 'fore:$(color.red),bold'
+property['style.error'] = 'fore:$(color.full_red),bold'
 property['style.function'] = 'fore:$(color.full_blue)'
 property['style.identifier'] = 'fore:$(color.white)'
 property['style.keyword'] = 'fore:$(color.full_white)'
-property['style.label'] = 'fore:$(color.red),bold'
+property['style.label'] = 'fore:$(color.full_green)'
 property['style.number'] = 'fore:$(color.cyan)'
 property['style.operator'] = 'fore:$(color.yellow)'
 property['style.preprocessor'] = 'fore:$(color.magenta)'
