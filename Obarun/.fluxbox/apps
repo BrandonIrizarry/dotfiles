@@ -4,10 +4,15 @@
 [end]
 [app] (name=xterm) (class=XTerm)
   [Dimensions]	{71% 86%}
-  [Position]	(UPPERLEFT)	{25% 13%}
+  [Position]	(UPPERLEFT)	{22% 20%}
   [Close]	{yes}
 [end]
 [app] (name=textadept) (class=Textadept)
   [Dimensions]	{75% 99%}
+  [Close]	{yes}
+[end]
+[app] (name=luakit) (class=Luakit)
+  [Dimensions]	{94% 83%}
+  [Position]	(UPPERLEFT)	{2% 7%}
   [Close]	{yes}
 [end]
