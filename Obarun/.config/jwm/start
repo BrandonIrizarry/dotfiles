@@ -6,7 +6,7 @@
 	<StartupCommand>numlockx</StartupCommand>
 	<!--<StartupCommand>clipit</StartupCommand>-->
 	<!-- <StartupCommand>compton --config ~/.config/compton.conf</StartupCommand> -->
-	<StartupCommand>connman-gtk</StartupCommand>
+	<!--<StartupCommand>connman-gtk</StartupCommand>-->
 	<StartupCommand>volumeicon</StartupCommand>
 	<StartupCommand>cbatticon</StartupCommand>
 </JWM>

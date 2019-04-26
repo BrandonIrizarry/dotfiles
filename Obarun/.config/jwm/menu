@@ -24,7 +24,18 @@
 		<Restart icon="emblem-dropbox-syncing.png" label="Reconfigure"/>
 		<Program icon="gtk-execute" label="Execute">rofi -combi-modi window,drun -show combi</Program>
 		<Program icon="emblem-readonly.png" label="lockscreen">ob-lockscreen -i /usr/share/obarun/ob-lockscreen/oblock.png</Program>
-		<Program icon="exit" label="Exit">obshutdown -c ~/.config/obshut/exit.rc</Program>
+		<!--<Program icon="exit" label="Exit">obshutdown -c ~/.config/obshut/exit.rc</Program>-->
+		<Menu icon="exit" label="Exit">
+			<Program icon="exit" label="Shutdown">
+				obshutdown -c ~/.config/obshut/exit.rc --run=shutdown
+			</Program>
+			<Program icon="exit" label="Log out">
+				obshutdown -c ~/.config/obshut/exit.rc --run=logout
+			</Program>
+			<Program icon="exit" label="Reboot">
+				obshutdown -c ~/.config/obshut/exit.rc --run=restart
+			</Program>
+		</Menu>
 	</RootMenu>
 	
 	
