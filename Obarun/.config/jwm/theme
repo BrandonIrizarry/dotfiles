@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <JWM>
-	<Font>Liberation Sans-9</Font>
+	<!--<Font>Liberation Sans-9</Font>-->
+  <Font>Courier</Font>
 	<!-- Window button -->
 	<ButtonClose>/usr/share/themes/Arc/unity/close.svg</ButtonClose>
 	<ButtonMax>/usr/share/themes/Arc/unity/unmaximize_dash_prelight.svg</ButtonMax>
@@ -11,14 +12,15 @@
         
         <Width>1</Width>
         <Height>25</Height>
-        <Corner>5</Corner>
-        <Foreground>#444444</Foreground>
+        <Corner>10</Corner>
+        <Foreground>black</Foreground>
         <Background>#444444</Background>
         <Outline>#444444</Outline>
         <Active>
             <Foreground>white</Foreground>
-            <Background>#444444</Background>
-            <Outline>#444444</Outline>
+            <Background>#555555</Background>
+            <Outline>green</Outline>
+            <!--<Opacity>1</Opacity>-->
         </Active>
         <Opacity>1</Opacity> 
     </WindowStyle>
