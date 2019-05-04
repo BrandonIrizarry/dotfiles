@@ -30,7 +30,8 @@
 		<Spacer width="5"/>
 		
 		<!-- clock -->
-		<Clock format="%l:%M%P">exec:gsimplecal</Clock>
+		<!--<Clock format="%l:%M%P">exec:gsimplecal</Clock>-->
+		<Clock format="%l:%M%P"></Clock>
 		<Spacer width="5"/>
 	</Tray>
 </JWM>
