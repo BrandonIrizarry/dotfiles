@@ -475,9 +475,10 @@ bindkey "^R" history-incremental-pattern-search-backward
 bindkey "^S" history-incremental-pattern-search-forward
 bindkey "^X^E" edit-command-line
 
+# Backspace stops working here - we'd have to fix it.
 # Launch tmux automatically when opening a shell in a graphical environment.
-if [[ $DISPLAY ]]; then
-	# If not running interactively, do not do anything
-	[[ $- != *i* ]] && return 
-	[[ -z "$TMUX" ]] && exec tmux
-fi
+#if [[ $DISPLAY ]]; then
+#	# If not running interactively, do not do anything
+#	[[ $- != *i* ]] && return 
+#	[[ -z "$TMUX" ]] && exec tmux
+#fi
