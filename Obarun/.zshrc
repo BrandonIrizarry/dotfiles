@@ -482,3 +482,5 @@ bindkey "^X^E" edit-command-line
 #	[[ $- != *i* ]] && return 
 #	[[ -z "$TMUX" ]] && exec tmux
 #fi
+
+export PATH=$PATH:$HOME/.bin
