@@ -3,9 +3,3 @@ xterm*background: black
 xterm*faceName: Courier
 xterm*faceSize: 15
 xterm*metaSendsEscape: true
-
-! Trying to fix backspace from here, but no dice.
-!XTerm*ttyModes: ek
-!XTerm*VT100.Translations: \
-!	#override <Key>BackSpace: string(0x7f) \n\
-!			  <Key>Delete:    string(0x1b) string("[3~")
