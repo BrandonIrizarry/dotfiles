@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LOCATION=$HOME/Documents/journal
+LOCATION=$HOME/Documents/Journal
 #if [[ -d $LOCATION ]]; then
 	textadept-curses $LOCATION/$(date +"%F")
 #fi

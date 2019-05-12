@@ -30,7 +30,7 @@ property['color.light_white'] = 0xFFFFFF
 -- Predefined styles.
 property['style.default'] = 'fore:$(color.white),back:$(color.light_black)'
 --property['style.linenumber'] =
-property['style.bracelight'] = 'fore:$(color.black),back:$(color.white)'
+property['style.bracelight'] = 'fore:$(color.black),back:$(color.magenta)'
 --property['style.controlchar'] =
 --property['style.indentguide'] =
 property['style.calltip'] = '$(style.default)'
@@ -58,7 +58,7 @@ property['style.whitespace'] = ''
 -- Multiple Selection and Virtual Space
 --buffer.additional_sel_fore =
 --buffer.additional_sel_back =
---buffer.additional_caret_fore =
+--buffer.additional_sel_back = property_int['color.black']
 
 -- Caret and Selection Styles.
 --buffer:set_sel_fore(true, property_int['color.white'])
@@ -82,6 +82,7 @@ local INDIC_HIGHLIGHT = textadept.editing.INDIC_HIGHLIGHT
 buffer.indic_fore[INDIC_HIGHLIGHT] = property_int['color.yellow']
 local INDIC_PLACEHOLDER = textadept.snippets.INDIC_PLACEHOLDER
 buffer.indic_fore[INDIC_PLACEHOLDER] = property_int['color.magenta']
+
 
 -- Call tips.
 --buffer.call_tip_fore_hlt = property_int['color.blue']

@@ -10,7 +10,8 @@ ZSHDDIR="${HOME}/.config/zsh.d"
 HISTFILE="${ZDOTDIR}/.zsh_history"
 HISTSIZE='10000'
 SAVEHIST="${HISTSIZE}"
-export EDITOR="/usr/bin/mcedit"
+#export EDITOR="/usr/bin/mcedit"
+export EDITOR="/usr/local/bin/textadept-curses"
 
 ## can be useful :)
 #source /usr/lib/obarun/common_functions
@@ -432,7 +433,7 @@ alias rmdir='rmdir -v'
 alias ln='ln -v'
 alias chmod="chmod -c"
 alias chown="chown -c"
-
+alias ccc="textadept-curses"
 
 if command -v colordiff > /dev/null 2>&1; then
     alias diff="colordiff -Nuar"

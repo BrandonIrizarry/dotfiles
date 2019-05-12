@@ -11,6 +11,7 @@ end
 textadept.editing.auto_pairs = nil
 textadept.editing.typeover_chars = nil
 
+textadept.editing.brace_matches = nil
 
 -- Always use tabs of width 4 for indentation.
 buffer.use_tabs = true
