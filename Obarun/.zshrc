@@ -433,7 +433,6 @@ alias rmdir='rmdir -v'
 alias ln='ln -v'
 alias chmod="chmod -c"
 alias chown="chown -c"
-alias ccc="textadept-curses"
 
 if command -v colordiff > /dev/null 2>&1; then
     alias diff="colordiff -Nuar"
@@ -448,9 +447,11 @@ alias ls='ls --color=auto --human-readable --group-directories-first --classify'
 alias sign='gpg --detach-sign --use-agent -u mygpg --no-armor' 
 alias pkg='f(){sudo pacman -$@;unset -f f;};f'
 
+# Application aliases 
 alias obarun-adios='obshutdown -c $HOME/.config/obshut/exit.rc --run=shutdown'
 alias obarun-hasta-luego='obshutdown -c $HOME/.config/obshut/exit.rc --run=restart'
 alias obarun-vengo-ahorita='obshutdown -c $HOME/.config/obshut/exit.rc --run=logout'
+alias mpv='mpv --save-position-on-quit'
 
 ##Binkey
 

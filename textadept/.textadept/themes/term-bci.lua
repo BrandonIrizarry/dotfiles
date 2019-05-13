@@ -28,7 +28,7 @@ property['color.light_magenta'] = 0xFF00FF
 property['color.light_white'] = 0xFFFFFF
 
 -- Predefined styles.
-property['style.default'] = 'fore:$(color.white),back:$(color.light_black)'
+property['style.default'] = 'fore:$(color.white),back:$(color.black)'
 --property['style.linenumber'] =
 property['style.bracelight'] = 'fore:$(color.black),back:$(color.magenta)'
 --property['style.controlchar'] =
@@ -43,9 +43,9 @@ property['style.constant'] = 'fore:$(color.red)'
 property['style.embedded'] = '$(style.keyword),back:$(color.black)'
 property['style.error'] = 'fore:$(color.red),bold'
 property['style.function'] = 'fore:$(color.blue)'
-property['style.identifier'] = 'fore:$(color.yellow)'
-property['style.keyword'] = 'fore:$(color.white),bold'
-property['style.label'] = 'fore:$(color.yellow),bold'
+property['style.keyword'] = 'fore:$(color.yellow)'
+property['style.identifier'] = 'fore:$(color.white),bold'
+property['style.label'] = 'fore:$(color.green),bold'
 property['style.number'] = 'fore:$(color.cyan)'
 property['style.operator'] = 'fore:$(color.black),bold'
 property['style.preprocessor'] = 'fore:$(color.magenta)'
