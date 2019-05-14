@@ -51,7 +51,7 @@ property['style.operator'] = 'fore:$(color.black),bold'
 property['style.preprocessor'] = 'fore:$(color.magenta)'
 property['style.regex'] = 'fore:$(color.green),bold'
 property['style.string'] = 'fore:$(color.green)'
-property['style.type'] = 'fore:$(color.magenta),bold'
+property['style.type'] = 'fore:$(color.magenta)'
 property['style.variable'] = 'fore:$(color.blue),bold'
 property['style.whitespace'] = ''
 
