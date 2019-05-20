@@ -6,6 +6,8 @@
 		<Include>exec: xdgmenumaker -n -i -f jwm</Include>
 		<Separator/>
 		<Menu icon="gnome-system" label="JWM Manager">
+			<Program icon="gtk-edit" label="Edit Config Files">xterm -e textadept-curses ~/.config/jwm/*</Program>
+			<!--
 			<Program icon="gtk-edit" label="Menu">textadept ~/.config/jwm/menu</Program>
 			<Program icon="gtk-edit" label="Tray">textadept ~/.config/jwm/tray</Program>
 			<Program icon="gtk-edit" label="Start">textadept ~/.config/jwm/start</Program>
@@ -13,6 +15,7 @@
 			<Program icon="gtk-edit" label="Keys">textadept ~/.config/jwm/keys</Program>
 			<Program icon="gtk-edit" label="Groups">textadept ~/.config/jwm/groups</Program>
 			<Program icon="gtk-edit" label="Preferences">textadept ~/.config/jwm/preferences</Program>
+		-->
 		</Menu> 
 		<Menu icon="gnome-system" label="System configuration">
 			<Program icon="preferences-desktop-theme" label="Themes">lxappearance</Program>
