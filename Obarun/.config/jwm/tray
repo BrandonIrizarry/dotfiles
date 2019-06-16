@@ -2,7 +2,7 @@
 <JWM>
 <!-- Tray at the bottom. -->
 	<Tray  x="0" y="0" width="-1" height="25" autohide="off" halign="center" valign="bottom" layout="horizontal">          
-		<TrayButton icon="/usr/share/icons/obarun.png" >root:1</TrayButton>
+		<TrayButton icon="/usr/share/icons/obarun.png" >root:a</TrayButton>
 		
 		<Spacer width="5"/>
 		

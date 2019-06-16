@@ -12,17 +12,14 @@
     <Key key="l">right</Key>
     <Key key="Return">select</Key>
     <Key key="Escape">escape</Key>
-	<Key key="Menu">restart</Key>
+	<Key mask="4" key="Menu">root:a</Key>
     
     <!-- Key applications. -->
 	<Key mask="4" key="d">exec:rofi -show drun</Key>
-	<Key mask="A" key="F2">root:1</Key>
 	<Key mask="4" key="Return">exec:xterm</Key>
-	<!--<Key mask="4S" key="Return">exec:textadept</Key>-->
-	
 	
 	<!-- Key toggle. -->
-    <Key mask="4" key="Up">maxtop</Key>
+	<Key mask="4" key="Up">maxtop</Key>
     <Key mask="4" key="Down">maxbottom</Key>
     <Key mask="4" key="Left">maxleft</Key>
     <Key mask="4" key="Right">maxright</Key>
@@ -31,21 +28,9 @@
 	
     <Key mask="A" key="Tab">nextstacked</Key>
 	<Key mask="AS" key="Tab">prevstacked</Key>
-	<!--<Key mask="4" key="j">prev</Key>-->
-	<!--<Key mask="4" key="k">next</Key>-->
-    <Key mask="A" key="F4">close</Key>
-    <Key mask="A" key="#">desktop#</Key>
-    <Key mask="A" key="F5">window</Key>
-    <!--<Key mask="A" key="F10">maximize</Key>-->
-	<Key mask="4" key="f">fullscreen</Key>
+    <Key mask="4" key="c">close</Key>
+	<Key mask="4" key="m">maximize</Key>
+	<Key mask="4" key="n">minimize</Key>
 	<Key mask="4" key="period">rdesktop</Key>
 	<Key mask="4" key="comma">ldesktop</Key>
-	<!--
-    <Key mask="4" key="l">rdesktop</Key>
-    <Key mask="4" key="h">ldesktop</Key>
-    <Key mask="4" key="k">udesktop</Key>
-    <Key mask="4" key="j">ddesktop</Key
-	-->
-    
 </JWM>
-
