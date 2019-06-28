@@ -69,7 +69,7 @@ hc keybind $Mod-Shift-o split horizontal 0.3
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
- 
+
 # load layout
 hc load 4 "(split horizontal:0.500000:1 (clients vertical:2 0xc00009 0x2200009 0x1a00009) (clients vertical:0 0x2a00009))"
 
@@ -102,17 +102,17 @@ hc keybind $Mod-Shift-k shift up
 hc keybind $Mod-Shift-l shift right
 
 # colors
-hc set frame_border_active_color '#222222'
+hc set frame_border_active_color '#228822'
 hc set frame_border_normal_color '#101010'
 hc set frame_bg_normal_color '#565656'
 hc set frame_bg_active_color '#444444'
-hc set frame_border_width 0
-hc set window_border_width 0
+hc set frame_border_width 4
+hc set window_border_width 2
 hc set window_border_inner_width 0
 hc set window_border_normal_color '#454545'
-hc set window_border_active_color '#8c8c8c'
+hc set window_border_active_color '#8c008c'
 hc set always_show_frame 0
-hc set frame_gap 0
+hc set frame_gap 2
 # add overlapping window borders
 hc set window_gap -0
 hc set frame_padding 0
