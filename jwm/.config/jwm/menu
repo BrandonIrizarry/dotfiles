@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<JWM>
+<!-- The root menu. -->
+
+	<!-- Scroll-wheel no longer switches desktops. -->
+	<RootMenu onroot="45"/>
+	
+	<!-- Left-clicking the desktop no longer opens main menu. -->
+	<RootMenu onroot="a">
+		<Include>exec: xdgmenumaker -n -i -f jwm</Include>
+		<Separator/>
+		<Menu icon="gnome-system" label="JWM Manager">
+			<Program icon="gtk-edit" label="Edit Config Files">xterm -e textadept-curses ~/.config/jwm/*</Program>
+		</Menu> 
+		<Menu icon="gnome-system" label="System configuration">
+			<Program icon="preferences-desktop-theme" label="Themes">lxappearance</Program>
+			<Program icon="gnome-settings-sound" label="Sound Card">asoundconf-gtk</Program>
+			<Program icon="video-display" label="Screen resolution">lxrandr</Program>
+			<Program icon="display" label="Screen disposition">arandr</Program>
+		</Menu> 
+		<Separator/>
+		<Restart icon="emblem-dropbox-syncing.png" label="Reconfigure"/>
+		<Program icon="gtk-execute" label="Execute">rofi -combi-modi window,drun -show combi</Program>
+		<Program icon="emblem-readonly.png" label="lockscreen">ob-lockscreen -i /usr/share/obarun/ob-lockscreen/oblock.png</Program>
+		<Menu icon="exit" label="Exit">
+			<Program icon="exit" label="Shutdown">
+				obshutdown -c ~/.config/obshut/exit.rc --run=shutdown
+			</Program>
+			<Program icon="exit" label="Log out">
+				obshutdown -c ~/.config/obshut/exit.rc --run=logout
+			</Program>
+			<Program icon="exit" label="Reboot">
+				obshutdown -c ~/.config/obshut/exit.rc --run=restart
+			</Program>
+		</Menu>
+	</RootMenu>
+</JWM>
+
