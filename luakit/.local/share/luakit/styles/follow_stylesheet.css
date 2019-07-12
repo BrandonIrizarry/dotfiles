@@ -1,0 +1,26 @@
+#luakit_select_overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2147483647; /* Maximum allowable on WebKit */
+}
+
+#luakit_select_overlay .hint_overlay {
+    display: block;
+    position: absolute;
+    background-color: #000099;
+    border: 1px dotted #000;
+    opacity: 0.3;
+}
+
+#luakit_select_overlay .hint_label {
+    display: block;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: monospace, courier, sans-serif;
+    opacity: 0.8;
+}
