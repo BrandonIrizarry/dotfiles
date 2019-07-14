@@ -13,12 +13,14 @@ local actions = {
 			local text = luakit.selection.primary
 			local num_chars = string.len(text)
 			local _, num_lines = text:gsub("\n", "%1")
+      num_lines = num_lines + 1
+      local _, num_words = text:gsub("%g+", "%1")
 			
 			-- If nothing selected, then bork.
 			if not text then w:error("Empty selection.") return end
 			
 			luakit.selection.clipboard = text
-			w:notify(string.format("Copied %d line(s), %d char(s)", num_chars, num_lines))
+			w:notify(string.format("Copied %d line(s), %d word(s), %d char(s)", num_lines, num_words, num_chars))
 			
 			-- Deselect the selected text.
 			luakit.selection.primary = ""
