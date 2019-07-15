@@ -1,93 +1,150 @@
--- Avoid suspending curses version (undo instead)
+--[[
+	Some things done only in the main init file (i.e., not in a module):
+	- setting the user's theme.
+	- connecting to events.
+	- setting keybindings.
+	- all calls to 'ui.print'.
+	- loading modules.
+	
+	Note that theming is done first, so that errors don't ruin it.
+]]
+
+-- THEME
+local theme, font_table
+
+if CURSES then
+	theme = "term-bci"
+else
+	theme = "dark-bci"
+	
+	font_table = { 
+		font = "Fira Mono", 
+		fontsize = 15
+	}
+end
+
+buffer:set_theme(theme, font_table)
+
+-- Always use tabs of width 4 for indentation.
+buffer.use_tabs = true
+buffer.tab_width = 4
+
+-- Disable indentation guides
+buffer.indentation_guides = buffer.IV_NONE
+
+-- Disable code folding and hide the fold margin
+buffer.property.fold = "0" 
+buffer.margin_width_n[2] = 0
+
+-- Disable character autopairing with typeover
+textadept.editing.auto_pairs = nil
+textadept.editing.typeover_chars = nil
+
+
+-- Pressing C-z will undo, instead.
 events.connect(events.SUSPEND, function()
 	buffer:undo()
 	return true
 end, 1)
 
-require "theming" 
-
-_C = {} -- natural-language commands
-function _C.terminal ()
-	os.spawn("xterm", buffer.filename:match(".*/") or os.getenv("HOME"))
+-- Quick and dirty replacement for caps lock.
+keys.cl = function ()
+	textadept.editing.select_word()
+	buffer:upper_case()
+	buffer:set_empty_selection(buffer.current_pos)
 end
 
-_C.run = textadept.run.run
+-- LOAD MODULES.
 
-function _C.config () 
-	io.quick_open(_USERHOME)
-end
+local modules = {
+	"copy_paste",
+	"utils",
+	"commands",
+}
 
-function _C.root_config ()
-	io.quick_open(_HOME)
-end
+local data = {}
+	
+for _, mod in ipairs(modules) do
+	local status, result = pcall(require, mod)
 
-_C.doc = textadept.editing.show_documentation
-
-function _C.only ()
-	while view:unsplit() do end
-end
-
-function _C.reset ()
-	-- Only save if there are unsaved changes (that is, we may care to first
-	-- "save by hand", because we know we're resetting, and we have that habit.)
-	if buffer.modify then
-		io.save_file() -- presumably 'init.lua', or else the config file you're editing.
+	if status then
+		data[mod] = result
+	else
+		data = result
+		break
 	end
-	
-	reset()
 end
 
---_G.reset = nil -- no more Textadept reset!
-
-_C.quit = quit -- throw this in as a command
---_G.quit = nil -- no more quit!
-
--- Needs to be wrapped in a function call, 
--- to avoid writing to a message buffer.
-function _C.close ()
-	io.close_buffer()
+if type(data) == "string" then
+	ui.print(data)
+	ui.print("Aborting config.")
+	return -- abort the rest of the config
 end
 
-function _C.close_all ()
-	io.close_all_buffers()
+-- Confirm that all went well with loading user modules.
+data.utils.alert("Config didn't abort!")
+
+-- Confirm saves with a dialog box.
+events.connect(events.FILE_AFTER_SAVE, function (filename)
+	local basename = filename:match("^.+/(.+)")
+	data.utils.alert(string.format("Wrote file '%s' to disk!", basename))
+end)
+
+
+-- Copying.
+keys.cc = function ()
+	local sel = buffer.get_sel_text()
+	data.copy_paste.clipboard_write(sel)
 end
 
-_C.buffers = ui.switch_buffer
-
--- To use the command prompt, just erase the "_C." :)
-function keys.mc ()
-	ui.command_entry:set_text("_C.")
-	ui.command_entry.enter_mode("lua_command", "lua")
-	
-	-- The current buffer is always the one being edited; 
-	-- so we have to explicitly tell Textadept that the
-	-- the current buffer is actually the command entry.
-	local orig_buffer = _G.buffer
-	_G.buffer = ui.command_entry
-	
-	-- Unselect the selection, and move to the end of the command prompt.
-	buffer:set_empty_selection(buffer.length) 
-	
-	-- Restore the current buffer to be the one being edited.
-	_G.buffer = orig_buffer
+-- Cutting.
+keys.cx = function ()
+	local sel = buffer.get_sel_text()
+	buffer:cut()
+	data.copy_paste.clipboard_write(sel)
 end
 
-
--- Clobber pasting
-function keys.cv ()
-	buffer:page_down()
+-- Pasting.
+keys.cv = function () 
+	local text = data.copy_paste.clipboard_read() 
+	buffer:add_text(text)
 end
 
--- OK, since C-z is undo now.
-function keys.mv ()
-	buffer:page_up()
+_C = data.commands
+
+-- There can be multiple prefixes: to avoid code duplication, 
+-- use a function that returns an appropriate function.
+function command_prefix (prefix)
+	return function ()
+		ui.command_entry:set_text(prefix)
+		ui.command_entry.enter_mode("lua_command", "lua")
+		
+		-- The current buffer is always the (big) one being edited; 
+		-- so we have to explicitly tell Textadept that the
+		-- the current buffer is the command entry itself.
+		local orig_buffer = _G.buffer
+		_G.buffer = ui.command_entry
+		
+		-- Unselect the selection, and move to the end of the command prompt.
+		buffer:set_empty_selection(buffer.length) 
+		
+		-- Restore the current buffer to be the one being edited.
+		_G.buffer = orig_buffer
+	end
 end
 
--- Replace pasting
--- Use 'mZ' for redo.
-function keys.cy ()
-	buffer:paste()
-end
+keys.mc = command_prefix("_C.")
+
+--[===[
+_C = protect_require("commands")
+_V = protect_require("view")
+_B = protect_require("buffer")
+
+TYPES = {}
+TYPES.message_buffer = "[Message Buffer]" -- avoid typos
+
+
+
 
 -- Clobber homedir quick open
 -- Homedir quick open is now a command.
@@ -95,50 +152,47 @@ function keys.cu ()
 	buffer:del_line_left()
 end
 
--- C-k is the new 'cut'.
-local kill_line = keys.ck -- we'll use ck's original functionality to define the new function
-function keys.ck ()
-	if (buffer:get_sel_text()) == "" then
-		kill_line()
-	else
-		buffer:cut()
+
+PAST_COMMANDS = {}
+
+-- Save the original command-entry launcher hook.
+do
+	local old_command = keys.lua_command["\n"] 
+
+	keys.lua_command["\n"] = function ()
+		-- For some reason, 'table.insert' doesn't work here (limited environment?)
+		PAST_COMMANDS[#PAST_COMMANDS + 1] = ui.command_entry:get_text()
+		return old_command() 
 	end
 end
 
--- Clobber 'buffer:close()'
--- Now a command.
-keys.cw = keys.cmv
-
-function _C.alert (...)
-    local args = table.pack(...)
-    
-    for i=1, args.n do
-      args[i] = tostring(args[i])
-    end
-    
-    local data = table.concat(args, "\n")
-    
-    ui.dialogs.msgbox {
-      title = "Alert!",
-      text = data,
-    }
-end
-
-
-
-local result = pcall(require, "jump")
-
-if not result then
-	_C.alert("Error: will not load module 'jump'")
-end
-
-
-function _C.bookmark ()
-	textadept.bookmarks.toggle()
-end
-
--- Confirm saves with a dialog box.
-events.connect(events.FILE_AFTER_SAVE, function (filename)
-	local basename = filename:match("^.+/(.+)")
-	_C.alert(string.format("Wrote file '%s' to disk!", basename))
+-- Save 'PAST_COMMANDS' after successive resets!
+events.connect(events.RESET_BEFORE, function (t)
+	t.past_commands = PAST_COMMANDS
 end)
+
+events.connect(events.RESET_AFTER, function (t)
+	PAST_COMMANDS = t.past_commands
+end)
+
+
+
+
+keys.mv = command_prefix("_V.")
+keys.mb = command_prefix("_B.")
+
+
+
+--function run_past_command
+--[[
+local button, i = ui.dialogs.filteredlist {
+	title = "Title", columns = {'Foo'},--columns = {'Foo          ', 'Bar'},
+	items = {'a', 'b', 'c', 'd'}
+}
+
+if button == 1 then
+	ui.print('Selected row ', i)
+end
+--]]
+--]===]
+
