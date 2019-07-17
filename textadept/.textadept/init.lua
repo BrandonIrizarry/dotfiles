@@ -59,10 +59,13 @@ end
 local modules = {
 	"copy_paste",
 	"utils",
-	"commands",
+	--"commands",
+    --"wtf", -- nonexistent module
+	"cmd",
 }
 
-local data = {}
+data = {}
+
 	
 for _, mod in ipairs(modules) do
 	local status, result = pcall(require, mod)
@@ -75,41 +78,55 @@ for _, mod in ipairs(modules) do
 	end
 end
 
-if type(data) == "string" then
-	ui.print(data)
-	ui.print("Aborting config.")
-	return -- abort the rest of the config
-end
+events.connect(events.INITIALIZED, function ()
+	if type(data) == "string" then
+		ui.print(data)
+		ui.print("Aborting config.")
+		return -- abort the rest of the config
+	end
 
--- Confirm that all went well with loading user modules.
-data.utils.alert("Config didn't abort!")
+	-- Confirm that all went well with loading user modules.
+	data.utils.alert("Success!")
+	
+	-- Make 'cmd' global.
+	cmd = data.cmd
+	
+	-- Confirm saves with a dialog box.
+	events.connect(events.FILE_AFTER_SAVE, function (filename)
+		local basename = filename:match("^.+/(.+)")
+		data.utils.alert(string.format("Wrote file '%s' to disk!", basename))
+	end)
+	
+	-- Copying.
+	keys.cc = function ()
+		local sel = buffer.get_sel_text()
+		data.copy_paste.clipboard_write(sel)
+	end
 
--- Confirm saves with a dialog box.
-events.connect(events.FILE_AFTER_SAVE, function (filename)
-	local basename = filename:match("^.+/(.+)")
-	data.utils.alert(string.format("Wrote file '%s' to disk!", basename))
+	-- Cutting.
+	keys.cx = function ()
+		local sel = buffer.get_sel_text()
+		buffer:cut()
+		data.copy_paste.clipboard_write(sel)
+	end
+
+	-- Pasting.
+	keys.cv = function () 
+		local text = data.copy_paste.clipboard_read() 
+		buffer:add_text(text)
+	end
 end)
 
 
--- Copying.
-keys.cc = function ()
-	local sel = buffer.get_sel_text()
-	data.copy_paste.clipboard_write(sel)
-end
 
--- Cutting.
-keys.cx = function ()
-	local sel = buffer.get_sel_text()
-	buffer:cut()
-	data.copy_paste.clipboard_write(sel)
-end
 
--- Pasting.
-keys.cv = function () 
-	local text = data.copy_paste.clipboard_read() 
-	buffer:add_text(text)
-end
 
+
+
+
+
+
+--[[
 _C = data.commands
 
 -- There can be multiple prefixes: to avoid code duplication, 
@@ -134,6 +151,7 @@ function command_prefix (prefix)
 end
 
 keys.mc = command_prefix("_C.")
+--]]
 
 --[===[
 _C = protect_require("commands")
