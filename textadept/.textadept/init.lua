@@ -59,9 +59,6 @@ end
 local modules = {
 	"copy_paste",
 	"utils",
-	--"commands",
-    --"wtf", -- nonexistent module
-	"cmd",
 }
 
 data = {}
@@ -85,16 +82,25 @@ events.connect(events.INITIALIZED, function ()
 		return -- abort the rest of the config
 	end
 
+	-- Make all 'utils' globally accessible.
+
+	for name, mod in pairs(data.utils) do
+		if _G[name]  == nil then -- e.g. 'select' is already part of Lua....
+			_G[name] = mod
+		else
+			ui.print(string.format("Name '%s' is already taken by Textadept.", name))
+			ui.print("Aborting config.")
+			return
+		end			
+	end
+
 	-- Confirm that all went well with loading user modules.
-	data.utils.alert("Success!")
-	
-	-- Make 'cmd' global.
-	cmd = data.cmd
+	alert("Success!")
 	
 	-- Confirm saves with a dialog box.
 	events.connect(events.FILE_AFTER_SAVE, function (filename)
 		local basename = filename:match("^.+/(.+)")
-		data.utils.alert(string.format("Wrote file '%s' to disk!", basename))
+		alert(string.format("Wrote file '%s' to disk!", basename))
 	end)
 	
 	-- Copying.
@@ -115,7 +121,43 @@ events.connect(events.INITIALIZED, function ()
 		local text = data.copy_paste.clipboard_read() 
 		buffer:add_text(text)
 	end
+	
+	-- Fill in some missing 'view' keybindings.
+	keys.cmv.q = function ()
+		ui.goto_view(1)
+		view:unsplit()
+	end
+	
+	keys.ct = function ()
+		local maybe_buffer = buffer.filename and buffer.filename:match("^.*/") or os.getenv("HOME")
+		os.spawn("xterm", maybe_buffer)
+	end
+	
+	-- Also allow for opening Textadept's "root" internals.
+	keys.cu = {
+		u = function () io.quick_open(_USERHOME) end,
+		v = function () io.quick_open(_HOME) end,
+	}
+	
 end)
+
+--[[
+actions = {}
+for name, _ in pairs(buffer) do
+	actions[#actions + 1] = name
+end
+	
+local button, cmd = ui.dialogs.filteredlist {
+	title = "Title", columns = {'Foo'},--columns = {'Foo          ', 'Bar'},
+	items = actions,
+	string_output = true,
+}
+
+if button == "OK" then
+	data.utils.alert(button, cmd)
+end
+--]]
+
 
 
 
@@ -202,15 +244,12 @@ keys.mb = command_prefix("_B.")
 
 
 --function run_past_command
---[[
-local button, i = ui.dialogs.filteredlist {
-	title = "Title", columns = {'Foo'},--columns = {'Foo          ', 'Bar'},
-	items = {'a', 'b', 'c', 'd'}
-}
+--]===]
 
+
+--[[
 if button == 1 then
 	ui.print('Selected row ', i)
 end
---]]
---]===]
+]]
 
