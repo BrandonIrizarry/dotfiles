@@ -21,3 +21,4 @@ modes.add_binds("normal", {
 })
 
 
+local widget = require "widget"

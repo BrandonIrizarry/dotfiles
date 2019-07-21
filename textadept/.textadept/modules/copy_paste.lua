@@ -1,5 +1,5 @@
 --[[
-	Routines for reading and writing to the clipboard from curses.
+	NB: Install xclip first.
 ]]
 
 local M = {}
@@ -18,5 +18,23 @@ function M.clipboard_read ()
   return text
 end
 
-return M
+-- Copy.
+keys.cc = function ()
+	local sel = buffer.get_sel_text()
+	M.clipboard_write(sel)
+end
 
+-- Cut.
+keys.cx = function ()
+	local sel = buffer.get_sel_text()
+	buffer:cut()
+	M.clipboard_write(sel)
+end
+
+-- Paste.
+keys.cv = function () 
+	local text = M.clipboard_read() 
+	buffer:add_text(text)
+end
+
+return M

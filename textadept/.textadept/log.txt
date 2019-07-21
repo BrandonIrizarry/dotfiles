@@ -1,0 +1,133 @@
+Sat Jul 20 20:43:16 2019
+Success.Sat Jul 20 20:43:52 2019
+Success.Sat Jul 20 20:47:57 2019
+Success.Sat Jul 20 20:58:51 2019
+nil
+Sat Jul 20 20:58:54 2019
+nil
+Sat Jul 20 20:59:01 2019
+nil
+Sat Jul 20 20:59:14 2019
+nil
+Sat Jul 20 20:59:18 2019
+nil
+Sat Jul 20 21:00:01 2019
+nil
+Sat Jul 20 21:00:55 2019
+nil
+Sat Jul 20 21:02:59 2019
+nil
+Sat Jul 20 21:03:20 2019
+nil
+Sat Jul 20 21:03:46 2019
+Success.
+Sat Jul 20 21:30:17 2019
+Success.
+Sat Jul 20 21:30:29 2019
+Success.
+Sat Jul 20 21:33:47 2019
+Success.
+Sat Jul 20 21:33:56 2019
+Success.
+Sat Jul 20 21:46:24 2019
+Success.
+Sat Jul 20 21:53:15 2019
+error loading module 'copy_paste' from file '/home/brandon/.textadept/modules/copy_paste.lua':
+	/home/brandon/.textadept/modules/copy_paste.lua:23: <eof> expected near '<\239>'
+Sat Jul 20 21:57:10 2019
+error loading module 'copy_paste' from file '/home/brandon/.textadept/modules/copy_paste.lua':
+	/home/brandon/.textadept/modules/copy_paste.lua:25: <eof> expected near '<\239>'
+Sat Jul 20 21:57:42 2019
+Success.
+Sat Jul 20 22:10:41 2019
+Success.
+Sat Jul 20 22:10:48 2019
+Success.
+Sat Jul 20 22:10:56 2019
+Success.
+Sat Jul 20 22:18:08 2019
+Success.
+Sat Jul 20 22:18:41 2019
+Success.
+Sat Jul 20 22:22:26 2019
+Success.
+Sat Jul 20 22:23:09 2019
+Success.
+Sat Jul 20 22:23:36 2019
+Success.
+Sat Jul 20 22:23:54 2019
+Success.
+Sat Jul 20 22:28:31 2019
+Success.
+Sat Jul 20 22:28:57 2019
+Success.
+Sat Jul 20 22:30:57 2019
+Success.
+Sat Jul 20 22:32:05 2019
+Success.
+Sat Jul 20 22:33:56 2019
+Success.
+Sat Jul 20 22:42:53 2019
+Success.
+Sat Jul 20 22:43:33 2019
+Success.
+Sat Jul 20 22:43:57 2019
+Success.
+Sat Jul 20 22:46:09 2019
+Success.
+Sat Jul 20 22:46:12 2019
+Success.
+Sat Jul 20 22:47:13 2019
+Success.
+Sat Jul 20 22:48:46 2019
+Success.
+Sat Jul 20 22:51:11 2019
+Success.
+Sat Jul 20 22:56:41 2019
+Success.
+Sat Jul 20 22:56:56 2019
+Success.
+Sat Jul 20 22:57:02 2019
+Success.
+Sat Jul 20 22:57:13 2019
+Success.
+Sat Jul 20 22:57:21 2019
+Success.
+Sat Jul 20 22:57:37 2019
+Success.
+Sat Jul 20 22:57:39 2019
+Success.
+Sat Jul 20 22:58:01 2019
+Success.
+Sat Jul 20 23:01:13 2019
+Success.
+Sat Jul 20 23:01:19 2019
+Success.
+Sat Jul 20 23:01:26 2019
+Success.
+Sat Jul 20 23:02:05 2019
+Success.
+Sat Jul 20 23:02:38 2019
+Success.
+Sat Jul 20 23:03:07 2019
+Success.
+Sat Jul 20 23:03:10 2019
+Success.
+Sat Jul 20 23:03:12 2019
+Success.
+Sat Jul 20 23:04:40 2019
+Success.
+Sat Jul 20 23:04:41 2019
+Success.
+Sat Jul 20 23:05:01 2019
+Success.
+Sat Jul 20 23:05:37 2019
+Success.
+Sat Jul 20 23:05:39 2019
+Success.
+Sat Jul 20 23:13:58 2019
+Success.
+Sat Jul 20 23:14:09 2019
+Success.
+Sat Jul 20 23:14:34 2019
+Success.

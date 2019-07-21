@@ -1,45 +1,4 @@
---[[
-	Some things done only in the main init file (i.e., not in a module):
-	- setting the user's theme.
-	- connecting to events.
-	- setting keybindings.
-	- all calls to 'ui.print'.
-	- loading modules.
-	
-	Note that theming is done first, so that errors don't ruin it.
-]]
-
--- THEME
-local theme, font_table
-
-if CURSES then
-	theme = "term-bci"
-else
-	theme = "dark-bci"
-	
-	font_table = { 
-		font = "Fira Mono", 
-		fontsize = 15
-	}
-end
-
-buffer:set_theme(theme, font_table)
-
--- Always use tabs of width 4 for indentation.
-buffer.use_tabs = true
-buffer.tab_width = 4
-
--- Disable indentation guides
-buffer.indentation_guides = buffer.IV_NONE
-
--- Disable code folding and hide the fold margin
-buffer.property.fold = "0" 
-buffer.margin_width_n[2] = 0
-
--- Disable character autopairing with typeover
-textadept.editing.auto_pairs = nil
-textadept.editing.typeover_chars = nil
-
+require "theme"
 
 -- Pressing C-z will undo, instead.
 events.connect(events.SUSPEND, function()
@@ -47,209 +6,87 @@ events.connect(events.SUSPEND, function()
 	return true
 end, 1)
 
--- Quick and dirty replacement for caps lock.
-keys.cl = function ()
-	textadept.editing.select_word()
-	buffer:upper_case()
-	buffer:set_empty_selection(buffer.current_pos)
+-- Confirm saves with a dialog box.
+events.connect(events.FILE_AFTER_SAVE, function (filename)
+	local basename = filename:match("^.+/(.+)")
+	ui.statusbar_text = string.format("Wrote file '%s' to disk!", basename)
+end)
+
+-- Fill in some missing 'view' keybindings.
+keys.cmv.q = function ()
+	ui.goto_view(1)
+	view:unsplit()
 end
 
--- LOAD MODULES.
-
 local modules = {
+	"theme",
 	"copy_paste",
 	"utils",
+	"ringbuffer",
+	"config",
+	"view_modal",
 }
 
-data = {}
+Log = require("log"):new(_USERHOME .. "/log.txt")
 
-	
 for _, mod in ipairs(modules) do
 	local status, result = pcall(require, mod)
 
-	if status then
-		data[mod] = result
-	else
-		data = result
-		break
-	end
-end
-
-events.connect(events.INITIALIZED, function ()
-	if type(data) == "string" then
-		ui.print(data)
-		ui.print("Aborting config.")
-		return -- abort the rest of the config
-	end
-
-	-- Make all 'utils' globally accessible.
-
-	for name, mod in pairs(data.utils) do
-		if _G[name]  == nil then -- e.g. 'select' is already part of Lua....
-			_G[name] = mod
-		else
-			ui.print(string.format("Name '%s' is already taken by Textadept.", name))
-			ui.print("Aborting config.")
-			return
-		end			
-	end
-
-	-- Confirm that all went well with loading user modules.
-	alert("Success!")
-	
-	-- Confirm saves with a dialog box.
-	events.connect(events.FILE_AFTER_SAVE, function (filename)
-		local basename = filename:match("^.+/(.+)")
-		alert(string.format("Wrote file '%s' to disk!", basename))
-	end)
-	
-	-- Copying.
-	keys.cc = function ()
-		local sel = buffer.get_sel_text()
-		data.copy_paste.clipboard_write(sel)
-	end
-
-	-- Cutting.
-	keys.cx = function ()
-		local sel = buffer.get_sel_text()
-		buffer:cut()
-		data.copy_paste.clipboard_write(sel)
-	end
-
-	-- Pasting.
-	keys.cv = function () 
-		local text = data.copy_paste.clipboard_read() 
-		buffer:add_text(text)
+	if not status then
+		Log:log(result, false)
+		goto end_of_config
 	end
 	
-	-- Fill in some missing 'view' keybindings.
-	keys.cmv.q = function ()
-		ui.goto_view(1)
-		view:unsplit()
+	if _G[mod] ~= nil then
+		Log:log("Name '%s' already taken.", false, mod)
+		goto end_of_config
 	end
-	
-	keys.ct = function ()
-		local maybe_buffer = buffer.filename and buffer.filename:match("^.*/") or os.getenv("HOME")
-		os.spawn("xterm", maybe_buffer)
-	end
-	
-	-- Also allow for opening Textadept's "root" internals.
-	keys.cu = {
-		u = function () io.quick_open(_USERHOME) end,
-		v = function () io.quick_open(_HOME) end,
-	}
-	
-end)
-
---[[
-actions = {}
-for name, _ in pairs(buffer) do
-	actions[#actions + 1] = name
-end
-	
-local button, cmd = ui.dialogs.filteredlist {
-	title = "Title", columns = {'Foo'},--columns = {'Foo          ', 'Bar'},
-	items = actions,
-	string_output = true,
-}
-
-if button == "OK" then
-	data.utils.alert(button, cmd)
-end
---]]
-
-
-
-
-
-
-
-
-
-
-
---[[
-_C = data.commands
-
--- There can be multiple prefixes: to avoid code duplication, 
--- use a function that returns an appropriate function.
-function command_prefix (prefix)
-	return function ()
-		ui.command_entry:set_text(prefix)
-		ui.command_entry.enter_mode("lua_command", "lua")
 		
-		-- The current buffer is always the (big) one being edited; 
-		-- so we have to explicitly tell Textadept that the
-		-- the current buffer is the command entry itself.
-		local orig_buffer = _G.buffer
-		_G.buffer = ui.command_entry
-		
-		-- Unselect the selection, and move to the end of the command prompt.
-		buffer:set_empty_selection(buffer.length) 
-		
-		-- Restore the current buffer to be the one being edited.
-		_G.buffer = orig_buffer
-	end
+	_G[mod] = result
 end
 
-keys.mc = command_prefix("_C.")
---]]
+-- Confirm that all went well with loading user modules.
+Log:log("Success.", true)
 
---[===[
-_C = protect_require("commands")
-_V = protect_require("view")
-_B = protect_require("buffer")
-
-TYPES = {}
-TYPES.message_buffer = "[Message Buffer]" -- avoid typos
+::end_of_config::
+Log:finish()
 
 
-
-
--- Clobber homedir quick open
--- Homedir quick open is now a command.
-function keys.cu ()
-	buffer:del_line_left()
-end
-
-
-PAST_COMMANDS = {}
+past_commands = ringbuffer:new(10)
 
 -- Save the original command-entry launcher hook.
-do
-	local old_command = keys.lua_command["\n"] 
+local old_command = keys.lua_command["\n"] 
 
-	keys.lua_command["\n"] = function ()
-		-- For some reason, 'table.insert' doesn't work here (limited environment?)
-		PAST_COMMANDS[#PAST_COMMANDS + 1] = ui.command_entry:get_text()
-		return old_command() 
-	end
+keys.lua_command["\n"] = function ()
+	past_commands:push(ui.command_entry:get_text())
+	return old_command() 
 end
 
--- Save 'PAST_COMMANDS' after successive resets!
+
+-- Save 'past_commands' after successive resets!
 events.connect(events.RESET_BEFORE, function (t)
-	t.past_commands = PAST_COMMANDS
+	t.past_commands = past_commands
 end)
 
 events.connect(events.RESET_AFTER, function (t)
-	PAST_COMMANDS = t.past_commands
+	past_commands = t.past_commands
 end)
 
-
-
-
-keys.mv = command_prefix("_V.")
-keys.mb = command_prefix("_B.")
-
-
-
---function run_past_command
---]===]
-
-
---[[
-if button == 1 then
-	ui.print('Selected row ', i)
+function select_command ()
+	local options = {
+		title = "Previous Commands",
+		columns = {"Which one?"},
+		string_output = true,
+		items = past_commands,
+	}
+	
+	local button, choice = ui.dialogs.filteredlist(options)
+	if button == "OK" then
+		ui.command_entry:set_text(choice)
+		ui.command_entry.finish_mode(function() old_command() end) -- telegraphic;
+		-- but I see a module in my future, tbc.
+		-- also, remove duplicates from past_commands.
+		-- Dependencies... tbc.
+	end
 end
-]]
-
+	

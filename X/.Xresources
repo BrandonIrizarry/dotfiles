@@ -1,5 +1,5 @@
 xterm*foreground: white
 xterm*background: black
-xterm*faceName: Courier
+xterm*faceName: Fira Mono
 xterm*faceSize: 15
 xterm*metaSendsEscape: true
