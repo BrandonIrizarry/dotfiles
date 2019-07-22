@@ -36,7 +36,7 @@ local function select_command ()
 		columns = {"Which one?"},
 		string_output = true,
 		items = itemized,
-		button2 = "Clear"
+		button2 = "Clear",
 	}
 	
 	local button, choice = ui.dialogs.filteredlist(options)
