@@ -48,4 +48,45 @@ events.connect(events.INITIALIZED, function ()
 	
 	local NOTIFY_STATUS = report and ui.print or utils.alert
 	NOTIFY_STATUS(report or "Success.")
+	
+	local function say_hi ()
+		ui.print("hi")
+	end
+	
+	
+	function naive_clone (fn)
+		return load(string.dump(fn))
+	end
+	
+	--[[
+	for binding, fn in pairs(keys.KEYSYMS) do
+		ui.print(binding, fn)
+	end
+--]]
+	
+	--naive_clone(function () ui.command_entry.enter_mode("lua_command", "lua") end)()
+	
+	---[[
+	function get_upvalues (fn)
+		local i = 1
+		while true do
+			local name = debug.getupvalue(fn, i)
+			if not name then
+				break
+			end
+			ui.print(name)
+			i = i + 1
+		end
+	end
+	--]]
+	
+	for binding, fn in pairs(keys) do
+		if type(fn) == "function" then
+			ui.print(binding)
+			get_upvalues(fn)	
+			ui.print(string.rep("-", 50))
+		end
+	end
+	
+		
 end)
