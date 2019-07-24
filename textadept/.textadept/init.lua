@@ -63,6 +63,7 @@ events.connect(events.INITIALIZED, function ()
 		ui.print(binding, fn)
 	end
 --]]
+
 	
 	--naive_clone(function () ui.command_entry.enter_mode("lua_command", "lua") end)()
 	
@@ -80,13 +81,28 @@ events.connect(events.INITIALIZED, function ()
 	end
 	--]]
 	
-	for binding, fn in pairs(keys) do
-		if type(fn) == "function" then
-			ui.print(binding)
-			get_upvalues(fn)	
-			ui.print(string.rep("-", 50))
+	function list ()
+		for binding, fn in pairs(keys) do
+			if type(fn) == "function" then
+				ui.print(binding)
+				get_upvalues(fn)	
+				ui.print(string.rep("-", 50))
+			end
 		end
 	end
+
+
+	--debug.upvaluejoin(print, 1, keys.sleft
+	--ui.print(naive_clone(keys.cmv.q))
+	--list()
+	--get_upvalues(keys.sleft)
 	
-		
+	local keys_text = io.open(_HOME .. "/modules/textadept/keys.lua"):read("a")
+	for expr in keys_text:gmatch("keys%[.-%]") do
+		ui.print(expr)
+	end
+
+	for expr in keys_text:gmatch("(keys%.%w+)%s") do
+		ui.print(expr)
+	end
 end)
