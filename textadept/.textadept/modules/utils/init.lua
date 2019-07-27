@@ -8,7 +8,10 @@ local M = {} -- the 'utils' module
 
 function load_utils (filename)
     local util = filename:match("^.*/([^.]+)")
-    M[util] = require("utils." .. util)
+	
+	if util ~= "select_command" then
+		M[util] = require("utils." .. util)
+	end
 end
 
 lfs.dir_foreach(_USERHOME .. "/modules/utils/", load_utils, {".lua", "!init.lua"}, 0)
