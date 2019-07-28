@@ -3,13 +3,14 @@ local theme, font_table
 if CURSES then
 	theme = "term-bci"
 else
-	theme = "dark-bci"
+	theme = "light"
 	
 	font_table = { 
-		font = "Fira Mono", 
-		fontsize = 15
+	--	font = "Fira Mono", 
+		fontsize = 14
 	}
 end
+
 
 buffer:set_theme(theme, font_table)
 
