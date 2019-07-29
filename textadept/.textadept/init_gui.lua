@@ -12,10 +12,12 @@ end)
 
 local my_modlist = {
 	"alert",
+	"confirm",
 	"term",
 	"config",
 	"select_lines",
-	"file_menu"
+	"file_menu",
+	"rename_file",
 }
 
 events.connect(events.INITIALIZED, function ()
