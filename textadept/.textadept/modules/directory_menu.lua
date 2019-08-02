@@ -1,3 +1,22 @@
+--[[
+	FIXME:
+	
+	files, directories, don't use UNIX suffix when 'launch_menu' sorts 
+its entries.
+
+	1. Typing in a nonexistent file should offer to create and open that file
+	in a buffer.
+	
+	2. Typing in a nonexistent directory should offer to create and take you
+	into that directory.
+	
+	3. "./" should come before "../", and possibly other things; so we don't
+	want the UNIX */=>@ filetype suffixes getting included in the sorting
+	criteria. Possibly include an option in 'launch_menu' that would exclude
+	certain characters, or a certain suffix of a string, I don't know yet, tbc.
+]]
+
+
 local M = {}
 
 local function strip (entry)

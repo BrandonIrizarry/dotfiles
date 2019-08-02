@@ -143,7 +143,8 @@ events.connect(events.INITIALIZED, function ()
 	keys.co = function ()
 		return launch_menu {
 			"File Menu",
-			Open = io.open_file,
+			--Open = io.open_file,
+			Open = directory_menu.init,
 			New = function () buffer:new() end,
 			Rename = rename_file,
 			Save = io.save_file,
