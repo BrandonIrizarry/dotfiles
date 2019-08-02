@@ -1,32 +1,28 @@
 return function ()
-	local options = {
-		"Open",
-		"New",
-		"Rename",
-		"Save",
-		"Close",
-		"Quit",
+	local glossary = {
+		{"Open", io.open_file},
+		{"New", function () buffer:new() end,},
+		{"Rename", rename_file},
+		{"Save", io.save_file},
+		{"Close", io.close_buffer},
+		{"Quit", quit},
 	}
 	
-	local effects = {
-		io.open_file,
-		function () buffer:new() end,
-		rename_file,
-		io.save_file,
-		io.close_buffer,
-		quit,
-	}
+	local itemization = {}
+	for _, binding in ipairs(glossary) do
+		table.insert(itemization, binding[1])
+	end
+	
 	
 	local button, idx = ui.dialogs.filteredlist {
 		title = "File Menu",
 		columns = {""},
-		items = options,
+		items = itemization,
 		width = 250,
 		height = 250,
 	}
 	
 	if button == 1 then
-		return effects[idx]()
+		return glossary[idx][2]()
 	end
 end
-		

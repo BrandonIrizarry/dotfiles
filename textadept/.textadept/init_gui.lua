@@ -1,3 +1,12 @@
+--[[
+NB: As we're loading the modules, we're not adding them to _G just yet (as we did before),
+so I can't count on a module just because it occurs prior in the list.
+
+Modules with dependencies should instead define an "init" method that's usable by the time
+all the other modules are loaded into _G (see, for example, "directory_menu", which depends
+on "launch_menu".)
+]]
+
 events.connect(events.INITIALIZED, function ()
 	textadept.menu.menubar = nil
 end)
@@ -11,18 +20,20 @@ events.connect(events.FILE_AFTER_SAVE, function (filename)
 end)
 
 local my_modlist = {
+--	"select_lines",
+--	"confirm",
 	"alert",
-	"confirm",
 	"term",
 	"config",
-	"select_lines",
-	"file_menu",
 	"rename_file",
+	"launch_menu",	
+	"directory_menu",
 }
 
 events.connect(events.INITIALIZED, function ()
 	local report
 	
+
 	local function load_modules (modlist)
 		local lmods = {}
 		
@@ -61,9 +72,15 @@ events.connect(events.INITIALIZED, function ()
 		
 	-- Rebind some keys to acheive similarity to the curses version.
 	local basic_keys = {
-		ck = function () buffer:del_line_right() end,
-		cu = function () buffer:del_line_left() end,
+		ck = function()
+			buffer:line_end_extend()
+			if not buffer.selection_empty then buffer:cut() else buffer:clear() end
+		end,
 		ca = function () buffer:vc_home() end,
+		cu = function ()
+			buffer:home_extend()
+			if not buffer.selection_empty then buffer:cut() else buffer:clear() end
+		end,
 		ce = function () buffer:line_end() end,
 		aa = function () buffer:select_all() end,
 		ac = function () ui.command_entry.enter_mode("lua_command", "lua") end,
@@ -77,11 +94,17 @@ events.connect(events.INITIALIZED, function ()
 		["c/"] = ui.find.focus,
 		["a/"] = textadept.editing.block_comment,
 		ah = textadept.editing.show_documentation,
-		cl = ui.switch_buffer,
-		ch = function () buffer:page_down() end,
-		cH = function () buffer:page_up() end,
+		ch = ui.switch_buffer,
+		caa = function () buffer:document_start() end,
+		cae = function () buffer:document_end() end,
+		aU = function () buffer:page_up() end,
+		aD = function () buffer:page_down() end,
 		cp = function () buffer:line_up() end,
 		cn = function () buffer:line_down() end,
+		cz = function () buffer:zoom_in() end,
+		cZ = function () buffer:zoom_out() end,
+		az = buffer.undo,
+		ar = buffer.redo,
 		
 		
 		cmv = {
@@ -102,16 +125,70 @@ events.connect(events.INITIALIZED, function ()
 		},
 		
 		ct = term,
-		co = file_menu,
+		--co = file_menu,
 	}
-  
+
+	
 	local function load_keys (key_set)	
 		for binding, operation in pairs(key_set) do
 			keys[binding] = operation
 		end
 	end
-	
+
+	--[[
 	load_keys(basic_keys)
 	load_keys(lmod_keys)
+	--]]
+	
+	keys.co = function ()
+		return launch_menu {
+			"File Menu",
+			Open = io.open_file,
+			New = function () buffer:new() end,
+			Rename = rename_file,
+			Save = io.save_file,
+			Close = io.close_buffer,
+			Quit = quit,
+		}
+	end
+	
+	
+	local title = "Directory Search"
+	local path = buffer.filename:match(".*/") or os.getenv("HOME")
+
+	local function make_glossary ()
+		local glossary = {title}
+		
+		local ls_h = io.popen("ls -aLF "..path)
+
+		for entry in ls_h:lines() do
+			local e, class = entry:match("(.*)([*/=>@|])")
+			if class == "/" then -- directory
+				local dir = e..class
+				
+				glossary[dir] = function () 
+					path = path..dir
+					directory_menu() 
+				end
+			else
+				glossary[e] = function () 
+					io.open_file(path..e) 
+				end
+			end
+		end
+		
+		return glossary
+	end
+
+
+	launch_menu = require "launch_menu"
+
+	local function directory_menu ()
+		local glossary = make_glossary(path)
+		ui.print(type(glossary))
+		return launch_menu(glossary)
+	end
+
+	keys.c9 = directory_menu
 end)
 
