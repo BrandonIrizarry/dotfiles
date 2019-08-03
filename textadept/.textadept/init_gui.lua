@@ -27,7 +27,7 @@ local my_modlist = {
 	"config",
 	"rename_file",
 	"launch_menu",	
-	"directory_menu",
+	--"directory_menu",
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -41,7 +41,7 @@ events.connect(events.INITIALIZED, function ()
 			local status, mod = pcall(require, name)
 
 			if not status then -- we all know what this means. :)
-				return false, string.format("Error in module '%s': \n%sAborting config.", name, mod)
+				return false, string.format("Error in module '%s': \n%s\nAborting config.", name, mod)
 			end
 			
 			-- Check the availability of the module name, before making it global.
@@ -140,9 +140,10 @@ events.connect(events.INITIALIZED, function ()
 	load_keys(lmod_keys)
 	--]]
 	
+	--[[
 	keys.co = function ()
-		return launch_menu {
-			"File Menu",
+		return launch_menu("File Menu", 250, 250, {
+			--"File Menu",
 			--Open = io.open_file,
 			Open = directory_menu.init,
 			New = function () buffer:new() end,
@@ -150,9 +151,18 @@ events.connect(events.INITIALIZED, function ()
 			Save = io.save_file,
 			Close = io.close_buffer,
 			Quit = quit,
-		}
+		})
 	end
+	--]]
 	
+	 MAIN_T = {
+		--Open = directory_menu.init,
+		New = function () buffer:new() end,
+		Rename = rename_file,
+		Save = io.save_file,
+		Close = io.close_buffer,
+		Quit = quit,
+	}
 	
 	local title = "Directory Search"
 	local path = buffer.filename:match(".*/") or os.getenv("HOME")
@@ -180,16 +190,5 @@ events.connect(events.INITIALIZED, function ()
 		
 		return glossary
 	end
-
-
-	launch_menu = require "launch_menu"
-
-	local function directory_menu ()
-		local glossary = make_glossary(path)
-		ui.print(type(glossary))
-		return launch_menu(glossary)
-	end
-
-	keys.c9 = directory_menu
 end)
 
