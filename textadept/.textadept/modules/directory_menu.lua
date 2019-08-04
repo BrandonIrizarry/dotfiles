@@ -1,19 +1,8 @@
 --[[
-	Modulo hidden bugs, done. But some thoughts:
-	
-	With small changes in the code, would it help to practice _this_:
-	
-	local lm = launch_menu:clone(path) -- "launch_menu" is the primordial ancestor of all such menus
-	lm.sort = function () _your code here_ end -- this particular module uses a subgenus of l.m.
-	
-	lm3 = lm2:clone(path) -- here each call uses a grandchild of l.m.
-	lm3:launch()
-	
-	We're very close to this, just put it in for now as we have it :)
-	
-	You'd think that 'title' should also me one of those "milestone" fields in the 
-	inheritance chain, like 'sort'... for now, it's ok, though.
+	Launch a directory browser based on recursively spawning instances 
+of filtered list-based menus.
 ]]
+
 
 local M = {}
 
@@ -28,7 +17,9 @@ end
 
 function M.init ()
 	
-	local sort = function (w1, w2)
+	local lm = launch_menu:clone()
+	
+	lm.sort = function (w1, w2)
 		w1, w2 = strip(w1), strip(w2)
 		return w1 < w2
 	end
@@ -53,9 +44,9 @@ function M.init ()
 						local new_path = path..input
 						
 						if suffix == "/" then
-							lfs.mkdir(path..input)
-							local lm = launch_menu.init(new_path, sort)
-							lm(dir_set(new_path))
+							lfs.mkdir(new_path)
+							--local lm = launch_menu.init(new_path, sort)
+							lm:launch(dir_set(new_path), new_path)
 						else
 							if io.open(new_path) then
 								alert("File already exists!")
@@ -66,22 +57,22 @@ function M.init ()
 							end
 						end
 					else
-						local lm = launch_menu.init(path, sort)
-						lm(dir_set(path))
+						--local lm = launch_menu.init(path, sort)
+						lm:launch(dir_set(path), path)
 					end
 				end
 			elseif suffix == "/" then
 				set[entry] = function ()
 					local new_path
-					if base == "." then
-						new_path = path
-					elseif base == ".." then -- going up!
+					--if base == "." then
+				--		new_path = path
+					if base == ".." then -- going up!
 						new_path = path:sub(1,#path-1):match("^.*/") or "/"
 					else
 						new_path = path..entry
 					end
-						local lm = launch_menu.init(new_path, sort)
-						lm(dir_set(new_path))
+						--local lm = launch_menu.init(new_path, sort)
+						lm:launch(dir_set(new_path), new_path)
 				end
 			else
 				set[base] = function () io.open_file(path..base) end
@@ -92,9 +83,9 @@ function M.init ()
 	end
 	
 	local path = os.getenv("HOME").."/"
-	local lm = launch_menu.init(path, sort)
+	--local lm = launch_menu.init(path, sort)
 	
-	lm(dir_set(path))
+	lm:launch(dir_set(path), path)
 end
 
 return M

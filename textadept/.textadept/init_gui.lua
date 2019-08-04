@@ -27,7 +27,8 @@ local my_modlist = {
 	"config",
 	"rename_file",
 	"launch_menu",	
-	--"directory_menu",
+	"directory_menu",
+	"lm_test"
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -71,6 +72,7 @@ events.connect(events.INITIALIZED, function ()
 	end
 		
 	-- Rebind some keys to acheive similarity to the curses version.
+	--[[
 	local basic_keys = {
 		ck = function()
 			buffer:line_end_extend()
@@ -125,7 +127,6 @@ events.connect(events.INITIALIZED, function ()
 		},
 		
 		ct = term,
-		--co = file_menu,
 	}
 
 	
@@ -135,60 +136,19 @@ events.connect(events.INITIALIZED, function ()
 		end
 	end
 
-	--[[
 	load_keys(basic_keys)
 	load_keys(lmod_keys)
 	--]]
 	
-	--[[
 	keys.co = function ()
-		return launch_menu("File Menu", 250, 250, {
-			--"File Menu",
-			--Open = io.open_file,
+		return launch_menu:launch({
 			Open = directory_menu.init,
 			New = function () buffer:new() end,
 			Rename = rename_file,
 			Save = io.save_file,
 			Close = io.close_buffer,
 			Quit = quit,
-		})
-	end
-	--]]
-	
-	 MAIN_T = {
-		--Open = directory_menu.init,
-		New = function () buffer:new() end,
-		Rename = rename_file,
-		Save = io.save_file,
-		Close = io.close_buffer,
-		Quit = quit,
-	}
-	
-	local title = "Directory Search"
-	local path = buffer.filename:match(".*/") or os.getenv("HOME")
-
-	local function make_glossary ()
-		local glossary = {title}
-		
-		local ls_h = io.popen("ls -aLF "..path)
-
-		for entry in ls_h:lines() do
-			local e, class = entry:match("(.*)([*/=>@|])")
-			if class == "/" then -- directory
-				local dir = e..class
-				
-				glossary[dir] = function () 
-					path = path..dir
-					directory_menu() 
-				end
-			else
-				glossary[e] = function () 
-					io.open_file(path..e) 
-				end
-			end
-		end
-		
-		return glossary
+		}, "File Menu")
 	end
 end)
 

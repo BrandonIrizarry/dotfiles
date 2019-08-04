@@ -1,8 +1,17 @@
+--[[
+NB: We can't have prototypal objects be modules, since, if we
+modify the object/module's fields, we can never get the factory-defaults
+version back, because 'require' doesn't reload modules.
+	So, a simple trick suffices: make the original, module-based object 
+a read-only table, and arrange things such that its clones are read/write.
+]]
 
-local M = {}
+
 
 local DEFAULT_WIDTH = 250
 local DEFAULT_HEIGHT = 250
+
+local M = {}
 
 M.body = {
 	columns = {""},
@@ -14,7 +23,7 @@ M.body = {
 
 M.sort = function (w1, w2) return w1 < w2 end
 
-function M:launch (glossary)
+function M:launch (glossary, title)
 	local itemization = {}
 	
 	for word in pairs(glossary) do
@@ -23,6 +32,12 @@ function M:launch (glossary)
 		
 	table.sort(itemization, self.sort)
 	self.body.items = itemization
+	
+	if title then
+		local normalized = #title * 20
+		self.body.title = title
+		self.body.width = (normalized >= DEFAULT_WIDTH) and normalized or DEFAULT_WIDTH
+	end
 	
 	local button, choice = ui.dialogs.filteredlist(self.body)
 	
@@ -33,52 +48,33 @@ function M:launch (glossary)
 	end
 end
 
-function M:clone (title)
-	local lm = {}	
-	self.__index = self
-	setmetatable(lm, self)
-	
-	local normalized = #title * 20
-	lm.body.title = title
-	lm.body.width = (normalized >= DEFAULT_WIDTH) and normalized or DEFAULT_WIDTH
-	
-	return lm
-end
-
-return M
-
 --[[
-function M.init (title, sort)
-	return function (glossary)
-		local itemization = {}
+	See p. 195 of PIL 4.
+	NB: Setting the proxy table's __index field must be done outside
+of 'clone', since calls to 'clone' will occur after closing,
+and so setting an __index field on it will raise an error.
+	Based on the original 'M:clone' function (something
+like what appears on p. 200 of PIL 4.)
+]]
 
-		for word in pairs(glossary) do
-			table.insert(itemization, word)
-		end
+local proxy = {}
+proxy.__index = proxy -- lead accesses to M's fields back to proxy's metatable
+proxy.name = "launch_menu"
 
-		sort = sort or function (w1, w2) return w1 < w2 end
-		
-		table.sort(itemization, sort)
-		
-		local normal_width = #title * 20
-		local body = {	
-			title = title or "",
-			columns = {""},
-			items = itemization or {},
-			width = (normal_width >= 250) and normal_width or 250,
-			height = 250,
-			string_output = true
-		}
-		
-		local button, choice = ui.dialogs.filteredlist(body)
-		
-		if button == _L["_OK"] and choice then
-			glossary[choice]()
-		elseif not choice then
-			alert("Invalid choice")
-		end
-	end
+-- Note that 'proxy' doesn't have a '__newindex' method, so clones are writable.
+function proxy:clone ()
+	local lm = {}
+	return setmetatable(lm, self)
 end
 
-return M
---]]
+local mt = {
+	__index = M, 
+	__newindex = function (t)
+		local message = string.format("Module '%s' is read-only; use 'clone'.", t.name)
+		error(message, 2)
+	end
+}
+
+setmetatable(proxy, mt)
+
+return proxy
