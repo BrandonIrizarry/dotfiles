@@ -15,7 +15,7 @@ local function strip (entry)
 	end
 end
 
-function M.init ()
+function M.init (start_dir)
 	
 	local lm = launch_menu:clone()
 	
@@ -45,7 +45,6 @@ function M.init ()
 						
 						if suffix == "/" then
 							lfs.mkdir(new_path)
-							--local lm = launch_menu.init(new_path, sort)
 							lm:launch(dir_set(new_path), new_path)
 						else
 							if io.open(new_path) then
@@ -57,22 +56,20 @@ function M.init ()
 							end
 						end
 					else
-						--local lm = launch_menu.init(path, sort)
 						lm:launch(dir_set(path), path)
 					end
 				end
 			elseif suffix == "/" then
 				set[entry] = function ()
 					local new_path
-					--if base == "." then
-				--		new_path = path
+		
 					if base == ".." then -- going up!
 						new_path = path:sub(1,#path-1):match("^.*/") or "/"
 					else
 						new_path = path..entry
 					end
-						--local lm = launch_menu.init(new_path, sort)
-						lm:launch(dir_set(new_path), new_path)
+					
+					lm:launch(dir_set(new_path), new_path)
 				end
 			else
 				set[base] = function () io.open_file(path..base) end
@@ -82,8 +79,7 @@ function M.init ()
 		return set
 	end
 	
-	local path = os.getenv("HOME").."/"
-	--local lm = launch_menu.init(path, sort)
+	local path = start_dir or buffer.filename:match(".*/") or os.getenv("HOME").."/"
 	
 	lm:launch(dir_set(path), path)
 end

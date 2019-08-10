@@ -24,7 +24,7 @@ property['color.full_red'] = 0x0000FF
 property['color.papaya_whip'] = 0xD5EFFF
 
 -- Default font.
-property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 10
+property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 15
 if WIN32 then
   property['font'] = 'Courier New'
 elseif OSX then

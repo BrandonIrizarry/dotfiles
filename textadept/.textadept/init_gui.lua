@@ -20,15 +20,15 @@ events.connect(events.FILE_AFTER_SAVE, function (filename)
 end)
 
 local my_modlist = {
---	"select_lines",
---	"confirm",
+	"rgb",
+	"current_line",
+	"select_lines",
 	"alert",
 	"term",
 	"config",
 	"rename_file",
 	"launch_menu",	
 	"directory_menu",
-	"lm_test"
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -70,6 +70,30 @@ events.connect(events.INITIALIZED, function ()
 			return
 		end
 	end
+
+	
+	keys.cN = function ()
+		local line = current_line() + 1 
+		select_lines(line, line)
+	end
+	
+	--[[
+	function line_endpoints ()
+		local cursor = buffer.current_pos
+		local line = buffer:line_from_position(cursor) -- internal
+		local lstart = buffer:position_from_line(line)
+		local lend = buffer.line_end_position[line] + 1
+
+		return lstart, lend
+	end
+	--]]
+	
+
+
+	
+
+	
+	
 		
 	-- Rebind some keys to acheive similarity to the curses version.
 	--[[
@@ -140,15 +164,17 @@ events.connect(events.INITIALIZED, function ()
 	load_keys(lmod_keys)
 	--]]
 	
+	--[[
 	keys.co = function ()
 		return launch_menu:launch({
 			Open = directory_menu.init,
-			New = function () buffer:new() end,
+			["Open Home"] = function () directory_menu.init(os.getenv("HOME")) end,
 			Rename = rename_file,
 			Save = io.save_file,
 			Close = io.close_buffer,
 			Quit = quit,
 		}, "File Menu")
 	end
+	--]]
 end)
 
