@@ -54,6 +54,7 @@ property['color.light_blue'] = 0xFFCC80
 -- Other colors.
 property['color.lime_green'] = 0x08D6A6
 property['color.forest_green'] = 0x228B22
+property['color.neon'] = 0x14FF39
 property['color.gold'] = 0x37AFD4
 property['color.sandstone'] = 0x5F6D78
 property['color.dark_cyan'] = 0xAAAA00
@@ -62,6 +63,14 @@ property['color.papaya_whip'] = 0xD5EFFF
 property['color.bright_yellow'] = 0x00FFFF
 property['color.bright_red'] = 0x0000FF
 property['color.bright_green'] = 0x00FF00
+property['color.bright_red'] = 0x0000FF
+property['color.red_orange'] = 0x4953FF
+property['color.salmon'] = 0x7280FA
+property['color.coral'] = 0x507FFF
+property['color.peach'] = 0xB4E5FF
+property['color.magenta'] = 0xFF00FF
+property['color.magenta1'] = 0x8800FF
+property['color.indigo'] = 0xFF0088
 
 -- Default font.
 property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 15
@@ -80,22 +89,23 @@ property['style.indentguide'] = 'fore:$(color.light_black)'
 property['style.calltip'] = 'fore:$(color.light_grey),back:$(color.light_black)'
 property['style.folddisplaytext'] = 'fore:$(color.dark_grey)'
 
--- Token styles.
+-- Token styles. 
 property['style.class'] = 'fore:$(color.light_yellow)'
 property['style.comment'] = 'fore:$(color.yellow)'
-property['style.constant'] = 'fore:$(color.dark_white)'
+property['style.constant'] = 'fore:$(color.magenta1)'
 property['style.embedded'] = '$(style.keyword),back:$(color.light_black)'
 property['style.error'] = 'fore:$(color.bright_red)'
-property['style.function'] = 'fore:$(color.light_lavender)'
+property['style.function'] = 'fore:$(color.red_orange)'
 property['style.identifier'] = 'fore:$(color.papaya_whip),bold'
 property['style.keyword'] = 'fore:$(color.dark_pink)'
 property['style.label'] = 'fore:$(color.bright_yellow),bold'
 property['style.number'] = 'fore:$(color.yellow)'
-property['style.operator'] = 'fore:$(color.orange)'
+property['style.operator'] = 'fore:$(color.dark_white)'
+--property['style.operator'] = 'fore:$(color.bright_red)'
 property['style.preprocessor'] = 'fore:$(color.purple)'
 property['style.regex'] = 'fore:$(color.light_green)'
-property['style.string'] = 'fore:$(color.lime_green)'
-property['style.type'] = 'fore:$(color.gold)'
+property['style.string'] = 'fore:$(color.neon)'
+property['style.type'] = 'fore:$(color.indigo)'
 property['style.variable'] = 'fore:$(color.light_blue)'
 property['style.whitespace'] = ''
 

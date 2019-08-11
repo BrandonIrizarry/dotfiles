@@ -52,7 +52,7 @@ property['color.light_green'] = 0x80CC80
 property['color.light_blue'] = 0xFFCC80
 
 -- Default font.
-property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 10
+property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 15
 if WIN32 then
   property['font'] = 'Courier New'
 elseif OSX then
