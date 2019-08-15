@@ -9,12 +9,12 @@ Example usage:
 
 keys.co = function ()
 	return launch_menu:launch({
-		Open = directory_menu.init,
-		["Open Home"] = function () directory_menu.init(os.getenv("HOME")) end,
-		Rename = rename_file,
-		Save = io.save_file,
-		Close = io.close_buffer,
-		Quit = quit,
+		Open 			= directory_menu.init,
+		["Open Home"] 			= function () directory_menu.init(os.getenv("HOME")) end,
+		Rename 			= rename_file,
+		Save			= io.save_file,
+		Close 			= io.close_buffer,
+		Quit 			= quit,
 	}, "File Menu")
 end
 ]]

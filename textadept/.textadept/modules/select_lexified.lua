@@ -1,6 +1,6 @@
 return function ()
 	repeat
-		local here = buffer.style_at[buffer.current_pos] -- get style code
+		local here = buffer.style_at[buffer.current_pos] -- get the style-number
 		buffer:char_left()
 	until (buffer.style_at[buffer.current_pos] ~= here) or buffer.current_pos == 0
 

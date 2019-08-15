@@ -27,6 +27,9 @@ local my_modlist = {
 	"directory_menu",
 	"toggle_menubar",
 	"select_lexified",
+	"lua_pattern_find", -- from wiki
+	"file_browser", -- from wiki
+	"elastic_tabstops", -- from wikik
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -71,6 +74,12 @@ events.connect(events.INITIALIZED, function ()
 
 	-- Turn the menubar off.
 	toggle_menubar()	
+	
+	-- Use Lua patterns for searches, instead of regex.
+	lua_pattern_find.toggle_lua_patterns()
+	
+	-- Use elastic tabstops.
+	elastic_tabstops.enable()
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.
 	keys.cN = function ()
