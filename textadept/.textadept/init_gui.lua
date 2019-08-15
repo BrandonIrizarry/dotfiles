@@ -7,10 +7,6 @@ all the other modules are loaded into _G (see, for example, "directory_menu", wh
 on "launch_menu".)
 ]]
 
-events.connect(events.INITIALIZED, function ()
-	textadept.menu.menubar = nil
-end)
-
 require "theme"
 
 -- Confirm saves with a dialog box.
@@ -29,6 +25,8 @@ local my_modlist = {
 	"rename_file",
 	"launch_menu",	
 	"directory_menu",
+	"toggle_menubar",
+	"select_lexified",
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -71,110 +69,27 @@ events.connect(events.INITIALIZED, function ()
 		end
 	end
 
+	-- Turn the menubar off.
+	toggle_menubar()	
 	
+	-- Modify cN to select the trailing newline, so that we can indent single lines.
 	keys.cN = function ()
 		local line = current_line() + 1 
 		select_lines(line, line)
 	end
 	
-	--[[
-	function line_endpoints ()
-		local cursor = buffer.current_pos
-		local line = buffer:line_from_position(cursor) -- internal
-		local lstart = buffer:position_from_line(line)
-		local lend = buffer.line_end_position[line] + 1
-
-		return lstart, lend
+	keys["c>"] = function ()
+		buffer:line_end_extend()
 	end
-	--]]
 	
-
-
-	
-
+	keys["c<"] = function ()
+		buffer:home_extend()
+	end
 	
 	
-		
 	-- Rebind some keys to acheive similarity to the curses version.
-	--[[
-	local basic_keys = {
-		ck = function()
-			buffer:line_end_extend()
-			if not buffer.selection_empty then buffer:cut() else buffer:clear() end
-		end,
-		ca = function () buffer:vc_home() end,
-		cu = function ()
-			buffer:home_extend()
-			if not buffer.selection_empty then buffer:cut() else buffer:clear() end
-		end,
-		ce = function () buffer:line_end() end,
-		aa = function () buffer:select_all() end,
-		ac = function () ui.command_entry.enter_mode("lua_command", "lua") end,
-		cd = buffer.clear,
-		af = function () buffer:word_right() end,
-		ab = function () buffer:word_left() end,
-		cf = function () buffer:char_right() end,
-		cb = function () buffer:char_left() end,
-		an = function () view:goto_buffer(1) end,
-		ap = function () view:goto_buffer(-1) end,
-		["c/"] = ui.find.focus,
-		["a/"] = textadept.editing.block_comment,
-		ah = textadept.editing.show_documentation,
-		ch = ui.switch_buffer,
-		caa = function () buffer:document_start() end,
-		cae = function () buffer:document_end() end,
-		aU = function () buffer:page_up() end,
-		aD = function () buffer:page_down() end,
-		cp = function () buffer:line_up() end,
-		cn = function () buffer:line_down() end,
-		cz = function () buffer:zoom_in() end,
-		cZ = function () buffer:zoom_out() end,
-		az = buffer.undo,
-		ar = buffer.redo,
-		
-		
-		cmv = {
-			q = function () ui.goto_view(1) ;view:unsplit() end,
-			s = function () view:split() end,
-			v = function ()	view:split(true) end,
-			w = function () view:unsplit() end,
-			W = function () while view:unsplit() do end end,
-			n = function () ui.goto_view(1) end,
-			p = function () ui.goto_view(-1) end,			
-		}
-	}
-	
-	local lmod_keys = {
-		ax = {
-			c = config.config,
-			r = config.root_config,
-		},
-		
-		ct = term,
-	}
-
-	
-	local function load_keys (key_set)	
-		for binding, operation in pairs(key_set) do
-			keys[binding] = operation
-		end
-	end
-
-	load_keys(basic_keys)
-	load_keys(lmod_keys)
-	--]]
 	
 	--[[
-	keys.co = function ()
-		return launch_menu:launch({
-			Open = directory_menu.init,
-			["Open Home"] = function () directory_menu.init(os.getenv("HOME")) end,
-			Rename = rename_file,
-			Save = io.save_file,
-			Close = io.close_buffer,
-			Quit = quit,
-		}, "File Menu")
-	end
+
 	--]]
 end)
-

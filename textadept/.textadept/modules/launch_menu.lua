@@ -1,12 +1,23 @@
 --[[
-NB: We can't have prototypal objects be modules, since, if we
+	NB: We can't have prototypal objects be modules, since, if we
 modify the object/module's fields, we can never get the factory-defaults
 version back, because 'require' doesn't reload modules.
-	So, a simple trick suffices: make the original, module-based object 
+	So make the original, module-based object 
 a read-only table, and arrange things such that its clones are read/write.
+
+Example usage:
+
+keys.co = function ()
+	return launch_menu:launch({
+		Open = directory_menu.init,
+		["Open Home"] = function () directory_menu.init(os.getenv("HOME")) end,
+		Rename = rename_file,
+		Save = io.save_file,
+		Close = io.close_buffer,
+		Quit = quit,
+	}, "File Menu")
+end
 ]]
-
-
 
 local DEFAULT_WIDTH = 250
 local DEFAULT_HEIGHT = 250

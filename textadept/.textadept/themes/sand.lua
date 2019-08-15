@@ -82,11 +82,11 @@ end
 
 -- Predefined styles.
 property['style.default'] = 'font:$(font),size:$(fontsize),'..
-                            'fore:$(color.light_grey),back:$(color.light_black)'
+                            'fore:$(color.white),back:$(color.light_black)'
 property['style.linenumber'] = 'fore:$(color.light_orange),back:$(color.dark_black)'
 --property['style.controlchar'] =
 property['style.indentguide'] = 'fore:$(color.light_black)'
-property['style.calltip'] = 'fore:$(color.light_grey),back:$(color.light_black)'
+property['style.calltip'] = 'fore:$(color.white),back:$(color.light_black)'
 property['style.folddisplaytext'] = 'fore:$(color.dark_grey)'
 
 -- Token styles. 
