@@ -16,6 +16,8 @@ bind H exchangeleft
 bind K exchangeup
 bind L exchangeright
 
+bind Escape exec obshutdown -c /home/brandon/.config/obshut/exit.rc
+
 set winname class
 set border 0
 set padding 0 25 0 0
