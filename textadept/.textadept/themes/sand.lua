@@ -1,7 +1,3 @@
--- Copyright 2007-2019 Mitchell mitchell.att.foicica.com. See LICENSE.
--- Dark theme for Textadept.
--- Contributions by Ana Balan.
-
 local buffer = buffer
 local property, property_int = buffer.property, buffer.property_int
 
@@ -72,6 +68,9 @@ property['color.magenta'] = 0xFF00FF
 property['color.magenta1'] = 0x8800FF
 property['color.indigo'] = 0xFF0088
 
+property['color.bg_black']= 0x111111
+
+
 -- Default font.
 property['font'], property['fontsize'] = 'Bitstream Vera Sans Mono', 15
 if WIN32 then
@@ -82,7 +81,7 @@ end
 
 -- Predefined styles.
 property['style.default'] = 'font:$(font),size:$(fontsize),'..
-                            'fore:$(color.white),back:$(color.light_black)'
+                            'fore:$(color.white),back:$(color.bg_black)'
 property['style.linenumber'] = 'fore:$(color.light_orange),back:$(color.dark_black)'
 --property['style.controlchar'] =
 property['style.indentguide'] = 'fore:$(color.light_black)'

@@ -29,7 +29,7 @@ local my_modlist = {
 	"select_lexified",
 	"lua_pattern_find", -- from wiki
 	"file_browser", -- from wiki
-	"elastic_tabstops", -- from wikik
+	"elastic_tabstops", -- from wiki
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -76,10 +76,11 @@ events.connect(events.INITIALIZED, function ()
 	toggle_menubar()	
 	
 	-- Use Lua patterns for searches, instead of regex.
-	lua_pattern_find.toggle_lua_patterns()
+	-- This turns on the menubar after we've shut it off, so we can't use it for now.
+	--lua_pattern_find.toggle_lua_patterns()
 	
 	-- Use elastic tabstops.
-	elastic_tabstops.enable()
+	--elastic_tabstops.enable()
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.
 	keys.cN = function ()

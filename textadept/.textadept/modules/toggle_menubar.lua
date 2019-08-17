@@ -1,5 +1,5 @@
 local menubar = textadept.menu.menubar
-local switch = true
+switch = true
 
 return function ()
 	if switch then

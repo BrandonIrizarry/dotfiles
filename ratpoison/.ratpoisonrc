@@ -3,7 +3,7 @@ bind c exec sakura
 
 bind Next exec amixer -q set Master 5- unmute
 bind Prior exec amixer -q set Master 5+ unmute
-bind m exec amixer -q set Master toggle
+#bind m exec amixer -q set Master toggle
 
 unbind k
 
@@ -16,11 +16,16 @@ bind H exchangeleft
 bind K exchangeup
 bind L exchangeright
 
+bind g gnext
+bind G gnewbg
+bind m gmove
+
 bind Escape exec obshutdown -c /home/brandon/.config/obshut/exit.rc
 
 set winname class
 set border 0
-set padding 0 25 0 0
-set bgcolor #333333
-set fgcolor #CCCCCC
+set padding 0 25 0 0 
+set bgcolor black
+set fgcolor green
 set barborder 0
+set font Liberation Mono

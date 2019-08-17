@@ -6,7 +6,7 @@ else
 	--theme = "dark"
 	theme = "sand"
 	font_table = { 
-	--	font = "Fira Mono", 
+		font = "Liberation Mono", 
 		fontsize = 15
 	}
 end
