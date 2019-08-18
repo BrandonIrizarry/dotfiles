@@ -1,9 +1,9 @@
 escape F13
-bind c exec sakura
+#bind c exec sakura
 
 bind Next exec amixer -q set Master 5- unmute
 bind Prior exec amixer -q set Master 5+ unmute
-#bind m exec amixer -q set Master toggle
+bind equal exec amixer -q set Master toggle
 
 unbind k
 
@@ -25,7 +25,7 @@ bind Escape exec obshutdown -c /home/brandon/.config/obshut/exit.rc
 set winname class
 set border 0
 set padding 0 25 0 0 
-set bgcolor black
-set fgcolor green
+set bgcolor #333333
+set fgcolor #CCCCCC
 set barborder 0
 set font Liberation Mono

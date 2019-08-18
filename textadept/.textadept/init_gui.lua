@@ -15,6 +15,7 @@ events.connect(events.FILE_AFTER_SAVE, function (filename)
 	ui.statusbar_text = string.format("Wrote file '%s' to disk!", basename)
 end)
 
+
 local my_modlist = {
 	"rgb",
 	"current_line",
@@ -73,7 +74,7 @@ events.connect(events.INITIALIZED, function ()
 	end
 
 	-- Turn the menubar off.
-	toggle_menubar()	
+	--toggle_menubar()	
 	
 	-- Use Lua patterns for searches, instead of regex.
 	-- This turns on the menubar after we've shut it off, so we can't use it for now.
@@ -95,7 +96,6 @@ events.connect(events.INITIALIZED, function ()
 	keys["c<"] = function ()
 		buffer:home_extend()
 	end
-	
 	
 	-- Rebind some keys to acheive similarity to the curses version.
 	
