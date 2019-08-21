@@ -1,5 +1,4 @@
 escape F13
-#bind c exec sakura
 
 bind Next exec amixer -q set Master 5- unmute
 bind Prior exec amixer -q set Master 5+ unmute
@@ -29,3 +28,9 @@ set bgcolor #333333
 set fgcolor #CCCCCC
 set barborder 0
 set font Liberation Mono
+
+# Use bindings on the Windows key.
+newkmap Win
+definekey Win t exec textadept
+definekey Win l exec luakit
+definekey top Super_L readkey Win
