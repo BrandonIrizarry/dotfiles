@@ -28,6 +28,8 @@ local my_modlist = {
 	"directory_menu",
 	"toggle_menubar",
 	"select_lexified",
+	"define_mode",
+	--"modal",
 	"lua_pattern_find", -- from wiki
 	"file_browser", -- from wiki
 	"elastic_tabstops", -- from wiki
@@ -73,6 +75,63 @@ events.connect(events.INITIALIZED, function ()
 		end
 	end
 
+	local extras = {
+		cx = {b = ui.switch_buffer}
+	}
+	
+	local nav_bindings = {
+		h = function () buffer:char_left() end,
+		j = function () buffer:line_down() end,
+		k = function () buffer:line_up() end,
+		l = function () buffer:char_right() end,
+		cf = function () buffer:page_down() end,
+		cb = function () buffer:page_up() end,
+		--m = function () buffer:new_line() end,
+		--x = buffer.clear,
+		--cx = { b = ui.switch_buffer, },
+	}
+	
+	setmetatable(nav_bindings, {__index = extras})
+	
+	keys.ci = define_mode("Nav", nav_bindings)
+
+	-- This is basically it - we can now use Vim-like numerical prefixes
+	-- for modal commands.
+	local num_keys = {}
+	local digits = ""
+	
+	local binds = {
+		a = function () ui.print("A") end,
+		b = function () ui.print("B") end,
+	}
+	
+	local idx_meta
+	
+	idx_meta = function (t, key)
+		if tonumber(key) then
+			t[key] = setmetatable({}, {__index = idx_meta})
+			digits = digits..key
+			return t[key]
+		else
+			--local orig = binds[key]
+		
+			-- For bindings, if you return a function, it's executed; if you
+			-- return a table, it triggers a keychain.
+			return function ()
+				alert("sum inside new function:", digits, type(digits))
+				for i = 1, tonumber(digits) do
+					binds[key]()
+				end
+				digits = ""
+			end
+		end
+	end
+
+	setmetatable(num_keys, {__index = idx_meta})
+	
+	keys.cj = define_mode("Exp", num_keys)
+
+		
 	-- Turn the menubar off.
 	--toggle_menubar()	
 	
@@ -84,11 +143,14 @@ events.connect(events.INITIALIZED, function ()
 	--elastic_tabstops.enable()
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.
+	-- Super-useful for line selection - if you ever have a new binding for single-line
+	-- selection, make sure it does this, for heaven's sake!
 	keys.cN = function ()
 		local line = current_line() + 1 
 		select_lines(line, line)
 	end
 	
+	--[[
 	keys["c>"] = function ()
 		buffer:line_end_extend()
 	end
@@ -96,6 +158,7 @@ events.connect(events.INITIALIZED, function ()
 	keys["c<"] = function ()
 		buffer:home_extend()
 	end
+	]]
 	
 	-- Rebind some keys to acheive similarity to the curses version.
 	
