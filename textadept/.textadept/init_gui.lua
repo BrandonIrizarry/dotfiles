@@ -29,7 +29,7 @@ local my_modlist = {
 	"toggle_menubar",
 	"select_lexified",
 	"define_mode",
-	--"modal",
+	"nprefix",
 	"lua_pattern_find", -- from wiki
 	"file_browser", -- from wiki
 	"elastic_tabstops", -- from wiki
@@ -75,9 +75,6 @@ events.connect(events.INITIALIZED, function ()
 		end
 	end
 
-	local extras = {
-		cx = {b = ui.switch_buffer}
-	}
 	
 	local nav_bindings = {
 		h = function () buffer:char_left() end,
@@ -90,48 +87,20 @@ events.connect(events.INITIALIZED, function ()
 		--x = buffer.clear,
 		--cx = { b = ui.switch_buffer, },
 	}
-	
-	setmetatable(nav_bindings, {__index = extras})
-	
+		
 	keys.ci = define_mode("Nav", nav_bindings)
-
-	-- This is basically it - we can now use Vim-like numerical prefixes
-	-- for modal commands.
-	local num_keys = {}
-	local digits = ""
 	
-	local binds = {
+	-- Put all your 'multiplied' bindings here.
+	-- Anything not to be multiplied, add _directly_ as a binding to table
+	-- outputted by 'nprefix' (say, 'num_keys', as here), e.g., a colon,
+	-- or a C-b type thing for the buffer list (as, say, 'b' by itself).
+	num_keys = nprefix.init{
 		a = function () ui.print("A") end,
 		b = function () ui.print("B") end,
 	}
 	
-	local idx_meta
-	
-	idx_meta = function (t, key)
-		if tonumber(key) then
-			t[key] = setmetatable({}, {__index = idx_meta})
-			digits = digits..key
-			return t[key]
-		else
-			--local orig = binds[key]
-		
-			-- For bindings, if you return a function, it's executed; if you
-			-- return a table, it triggers a keychain.
-			return function ()
-				alert("sum inside new function:", digits, type(digits))
-				for i = 1, tonumber(digits) do
-					binds[key]()
-				end
-				digits = ""
-			end
-		end
-	end
-
-	setmetatable(num_keys, {__index = idx_meta})
-	
 	keys.cj = define_mode("Exp", num_keys)
-
-		
+	
 	-- Turn the menubar off.
 	--toggle_menubar()	
 	
