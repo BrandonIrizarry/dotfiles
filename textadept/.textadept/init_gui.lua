@@ -88,17 +88,19 @@ events.connect(events.INITIALIZED, function ()
 	
 	-- Example modes.
 	--keys.cj = define_mode("Exp", nav_bindings, true)
-	--keys.ci = define_mode("Nav", nav_bindings, false)
+	keys.ci = define_mode("Nav", nav_bindings, true)
 
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.
 	-- Super-useful for line selection - if you ever have a new binding for single-line
 	-- selection, make sure it does this, for heaven's sake!
-	keys.cN = function ()
+	keys.cn = function ()
 		local line = current_line() + 1 
 		select_lines(line, line)
 	end
 
+	keys.cN = nil -- don't use this for now.
+	
 	keys["c."] = function ()
 		buffer:line_end_extend()
 	end
@@ -106,4 +108,5 @@ events.connect(events.INITIALIZED, function ()
 	keys["c,"] = function ()
 		buffer:home_extend()
 	end
+	
 end)
