@@ -17,21 +17,22 @@ end)
 
 
 local my_modlist = {
-	"rgb",
+	--"rgb",
 	"current_line",
 	"select_lines",
 	"alert",
 	"term",
 	"config",
 	"rename_file",
-	"launch_menu",	
-	"directory_menu",
-	"toggle_menubar",
+	--"launch_menu",	
+	--"directory_menu",
+	--"toggle_menubar",
 	"select_lexified",
 	"define_mode",
-	"lua_pattern_find", -- from wiki
-	"file_browser", -- from wiki
-	"elastic_tabstops", -- from wiki
+	"deep_copy",
+	--"lua_pattern_find", -- from wiki
+	--"file_browser", -- from wiki
+	--"elastic_tabstops", -- from wiki
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -85,18 +86,10 @@ events.connect(events.INITIALIZED, function ()
 		["\n"] = function () buffer:new_line() end,
 	}
 	
-	keys.cj = define_mode("Exp", nav_bindings, true)
-	keys.ci = define_mode("Nav", nav_bindings, false)
-	
-	-- Turn the menubar off.
-	--toggle_menubar()	
-	
-	-- Use Lua patterns for searches, instead of regex.
-	-- This turns on the menubar after we've shut it off, so we can't use it for now.
-	--lua_pattern_find.toggle_lua_patterns()
-	
-	-- Use elastic tabstops.
-	--elastic_tabstops.enable()
+	-- Example modes.
+	--keys.cj = define_mode("Exp", nav_bindings, true)
+	--keys.ci = define_mode("Nav", nav_bindings, false)
+
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.
 	-- Super-useful for line selection - if you ever have a new binding for single-line
@@ -105,8 +98,7 @@ events.connect(events.INITIALIZED, function ()
 		local line = current_line() + 1 
 		select_lines(line, line)
 	end
-	
-	---[[
+
 	keys["c."] = function ()
 		buffer:line_end_extend()
 	end
@@ -114,5 +106,4 @@ events.connect(events.INITIALIZED, function ()
 	keys["c,"] = function ()
 		buffer:home_extend()
 	end
-	--]]
 end)
