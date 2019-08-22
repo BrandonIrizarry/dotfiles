@@ -29,7 +29,6 @@ local my_modlist = {
 	"toggle_menubar",
 	"select_lexified",
 	"define_mode",
-	"nprefix",
 	"lua_pattern_find", -- from wiki
 	"file_browser", -- from wiki
 	"elastic_tabstops", -- from wiki
@@ -83,23 +82,11 @@ events.connect(events.INITIALIZED, function ()
 		l = function () buffer:char_right() end,
 		cf = function () buffer:page_down() end,
 		cb = function () buffer:page_up() end,
-		--m = function () buffer:new_line() end,
-		--x = buffer.clear,
-		--cx = { b = ui.switch_buffer, },
-	}
-		
-	keys.ci = define_mode("Nav", nav_bindings)
-	
-	-- Put all your 'multiplied' bindings here.
-	-- Anything not to be multiplied, add _directly_ as a binding to table
-	-- outputted by 'nprefix' (say, 'num_keys', as here), e.g., a colon,
-	-- or a C-b type thing for the buffer list (as, say, 'b' by itself).
-	num_keys = nprefix.init{
-		a = function () ui.print("A") end,
-		b = function () ui.print("B") end,
+		["\n"] = function () buffer:new_line() end,
 	}
 	
-	keys.cj = define_mode("Exp", num_keys)
+	keys.cj = define_mode("Exp", nav_bindings, true)
+	keys.ci = define_mode("Nav", nav_bindings, false)
 	
 	-- Turn the menubar off.
 	--toggle_menubar()	
@@ -119,19 +106,13 @@ events.connect(events.INITIALIZED, function ()
 		select_lines(line, line)
 	end
 	
-	--[[
-	keys["c>"] = function ()
+	---[[
+	keys["c."] = function ()
 		buffer:line_end_extend()
 	end
 	
-	keys["c<"] = function ()
+	keys["c,"] = function ()
 		buffer:home_extend()
 	end
-	]]
-	
-	-- Rebind some keys to acheive similarity to the curses version.
-	
-	--[[
-
 	--]]
 end)
