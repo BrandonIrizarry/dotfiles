@@ -20,6 +20,7 @@ bind G gnewbg
 bind m gmove
 
 bind Escape exec obshutdown -c /home/brandon/.config/obshut/exit.rc
+bind a exec ratpoison -c "echo $(date +"%a %b %d %l:%M %P")"
 
 set winname class
 set border 0
