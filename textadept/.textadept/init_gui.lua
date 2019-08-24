@@ -83,12 +83,16 @@ events.connect(events.INITIALIZED, function ()
 		l = function () buffer:char_right() end,
 		cf = function () buffer:page_down() end,
 		cb = function () buffer:page_up() end,
-		["\n"] = function () buffer:new_line() end,
+	--	["\n"] = function () buffer:new_line() end,
 	}
 	
-	-- Example modes.
-	--keys.cj = define_mode("Exp", nav_bindings, true)
-	keys.ci = define_mode("Nav", nav_bindings, true)
+	-- An example set of top-level bindings for a mode.
+	local nav_rootb = {
+		[":"] = function () ui.command_entry.enter_mode("lua_command", "lua") end
+	}
+	
+	-- An example mode.
+	keys.ci = define_mode("Nav", nav_bindings, true, nav_rootb)
 
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.

@@ -26,6 +26,9 @@ digits via metatables to form numeric arguments to keybindings.
 numeric arguments. If nprefix=true, a default root_binds table is used over binds, to
 activate the keychain mechanism necessary to enact numeric prefixes. However,
 this last parameter can be provided as an initial custom definition of this table.
+	Allowing it explicitly as a separate parameter is mainly for keybindings for whom 
+numeric prefixes don't make any sense, such as "open file", "open buffer list", 
+"show command entry", and so on.
 
 	tbc - note that some bindings respond differently to arguments (something
 like 1 0 0 G would go to line 100).
@@ -95,7 +98,8 @@ return function (name, binds, nprefix, root_binds)
 		binds.esc = exit
 	end
 		
-	-- Interface with TA.
+	-- Interface with TA. The lhs of the 'or' is for numeric sensitive binds;
+	-- the rhs uses the binds table "raw".
 	keys[name] = (nprefix and setmetatable(root_binds, {__index = idx_meta})) or binds
 	
 	-- Return the function that activates the mode (so the caller can bind it to a key).
