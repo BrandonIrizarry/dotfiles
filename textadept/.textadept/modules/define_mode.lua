@@ -30,6 +30,8 @@ this last parameter can be provided as an initial custom definition of this tabl
 numeric prefixes don't make any sense, such as "open file", "open buffer list", 
 "show command entry", and so on.
 
+	Modes are given an automatic 'esc' binding for exiting that mode.
+This is in the tradition of Vi.
 	tbc - note that some bindings respond differently to arguments (something
 like 1 0 0 G would go to line 100).
 ]]
@@ -89,18 +91,13 @@ return function (name, binds, nprefix, root_binds)
 		keys.MODE = nil -- exit the mode.
 	end
 	
-	-- Give modes an automatic 'esc' binding, in the tradition of Vi.
-	-- In case of debugging, we don't want Escape triggering metatable code,
-	-- so hard-wiring such a binding into root makes things easier.
-	if nprefix then
-		root_binds.esc = exit
-	else
-		binds.esc = exit
-	end
-		
 	-- Interface with TA. The lhs of the 'or' is for numeric sensitive binds;
 	-- the rhs uses the binds table "raw".
 	keys[name] = (nprefix and setmetatable(root_binds, {__index = idx_meta})) or binds
+	
+	-- Note that, for nprefix binds, 'esc' is a top-level binding, so as not to trigger metatable code
+	-- when debugging. For nprefix=false, it's enough to just join it to 'binds'.
+	keys[name].esc = exit
 	
 	-- Return the function that activates the mode (so the caller can bind it to a key).
 	return function ()

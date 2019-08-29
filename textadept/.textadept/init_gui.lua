@@ -15,24 +15,20 @@ events.connect(events.FILE_AFTER_SAVE, function (filename)
 	ui.statusbar_text = string.format("Wrote file '%s' to disk!", basename)
 end)
 
-
 local my_modlist = {
-	--"rgb",
 	"current_line",
 	"select_lines",
 	"alert",
 	"term",
 	"config",
 	"rename_file",
-	--"launch_menu",	
-	--"directory_menu",
-	--"toggle_menubar",
 	"select_lexified",
 	"define_mode",
 	"deep_copy",
-	--"lua_pattern_find", -- from wiki
-	--"file_browser", -- from wiki
-	--"elastic_tabstops", -- from wiki
+	"nav",
+	"god_mode",
+	"file_opener",
+	"series",
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -76,23 +72,21 @@ events.connect(events.INITIALIZED, function ()
 	end
 
 	
-	local nav_bindings = {
-		h = function () buffer:char_left() end,
-		j = function () buffer:line_down() end,
-		k = function () buffer:line_up() end,
-		l = function () buffer:char_right() end,
-		cf = function () buffer:page_down() end,
-		cb = function () buffer:page_up() end,
-	--	["\n"] = function () buffer:new_line() end,
-	}
+	events.connect(events.QUIT, function ()
+		local button = ui.dialogs.ok_msgbox {
+			title = "Confirm",
+			informative_text = "Really quit?",
+			icon = "gtk-dialog-question",
+		}
 	
-	-- An example set of top-level bindings for a mode.
-	local nav_rootb = {
-		[":"] = function () ui.command_entry.enter_mode("lua_command", "lua") end
-	}
+		return button == 2
+	end)
 	
 	-- An example mode.
-	keys.ci = define_mode("Nav", nav_bindings, true, nav_rootb)
+	--keys.ci = nav.load()
+	
+	-- Another mode.
+	keys.ci = god_mode.load()
 
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.
@@ -109,6 +103,14 @@ events.connect(events.INITIALIZED, function ()
 	
 	keys["c<"] = function ()
 		buffer:home_extend()
+	end
+	
+	keys["ct"] = function ()
+		view:goto_buffer(1)
+	end
+	
+	keys["cT"] = function ()
+		view:goto_buffer(-1)
 	end
 	
 end)
