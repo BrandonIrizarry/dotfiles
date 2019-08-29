@@ -11,9 +11,11 @@ local function dir_stack (path)
 	for instr in path:gmatch(".-/") do
 		if instr == "../" then
 			table.remove(stack)
-		else
+		elseif instr ~= "./" then
 			table.insert(stack, instr)
 		end
+		
+		-- Fall through if instr == "./"; don't add anything.
 	end
 		
 	local dir = table.concat((#stack == 0) and {"/"} or stack)

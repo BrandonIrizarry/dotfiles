@@ -1,3 +1,13 @@
+--[[
+	Notes:
+	
+	The 'line_end' method doesn't work after multiple presses of the Tab key,
+so we use 'goto_pos' instead.
+	Some characters (such as hyphens) have a special meaning in Lua patterns,
+so we have to escape them.
+	Unselecting the displayed path only works _after_ entering the mode.
+]]
+
 local dir_stack = require "file_opener.dir_stack"
 local ls_command = "ls -ap"
 
@@ -5,14 +15,10 @@ keys.file_opener = {
 	["\t"] = function ()
 		local dir, part = dir_stack(ui.command_entry:get_text())
 		ui.command_entry:set_text(dir..part)
-		
-		-- Force the cursor to the end of the displayed text.
-		-- Note: the 'line_end' method doesn't work after multiple presses.
 		ui.command_entry:goto_pos(ui.command_entry.length)
 		
 		local list = {}
 	
-		-- A hyphen has a special meaning in Lua patterns, so escape it.
 		local prefix = "^"..part:gsub("%-", "%%-")
 		
 		for entry in io.popen(ls_command.." "..dir):lines() do
@@ -33,10 +39,9 @@ keys.file_opener = {
 }
 
 keys.co = function ()
-	ui.command_entry:set_text(os.getenv("HOME").."/")
+	ui.command_entry:set_text(buffer.filename:match(".*/") or os.getenv("HOME").."/")
 	ui.statusbar_text = "Enter path:"
 	ui.command_entry.enter_mode("file_opener")
 	
-	-- Note: Unselecting the displayed path only works _after_ the call to 'enter_mode'.
 	ui.command_entry:set_empty_selection(ui.command_entry.length)
 end

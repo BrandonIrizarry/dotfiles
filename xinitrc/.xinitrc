@@ -29,26 +29,4 @@ else
 	cmd="exec $@"
 fi
 
-# Here Xfce is kept as default
-#session=${1:-fluxbox}
-
-#case $session in
-#	fluxbox			) ${cmd} fluxbox;;
-#   openbox 		) ${cmd} openbox-session;;
-#	jwm				) ${cmd} jwm;;
-#	ratpoison       ) ${cmd} ratpoison;;
-	
-	
-    # No known session, try to run it as command
-#    *                 ) exec $1;;
-#esac
-
-## Select the session to start
-#${cmd} jwm
-#${cmd} openbox-session
-#${cmd} startkde
-
-#xmodmap $HOME/.xmodmaprc
-
-#${cmd} fluxbox
-${cmd} jwm
+${cmd} fluxbox
