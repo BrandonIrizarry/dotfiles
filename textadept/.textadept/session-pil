@@ -1,28 +1,28 @@
-buffer: 502 754 9 /home/brandon/PIL/ch25/ex25-3.lua
+buffer: 463 463 6 /home/brandon/PIL/ch25/ex25-3b.lua
 bookmarks: 
-buffer: 875 875 30 /home/brandon/PIL/ch25/ex25-3_test.lua
+buffer: 964 964 23 /home/brandon/PIL/ch25/ex25-3b_test.lua
 bookmarks: 
-buffer: 1352 1352 38 /home/brandon/PIL/ch25/modules/var_it.lua
+buffer: 620 716 8 /home/brandon/PIL/ch25/ex25-4.lua
 bookmarks: 
-buffer: 1067 1067 0 /home/brandon/PIL/ch25/modules/var_it_test.lua
+buffer: 872 872 10 /home/brandon/PIL/ch25/ex25-5.lua
 bookmarks: 
-buffer: 0 0 0 /home/brandon/PIL/ch25/ex25-4.lua
+buffer: 763 763 0 /home/brandon/PIL/ch25/ex25-2b.lua
 bookmarks: 
-buffer: 1904 1904 18 /home/brandon/PIL/ch25/ex25-5.lua
+buffer: 637 637 18 /home/brandon/PIL/ch25/ex25-1b.lua
 bookmarks: 
-buffer: 680 680 18 /home/brandon/PIL/ch25/ex25-2b.lua
+buffer: 696 696 0 /home/brandon/PIL/ch25/ex25-1b_test.lua
 bookmarks: 
-buffer: 637 637 10 /home/brandon/PIL/ch25/ex25-1b.lua
+buffer: 482 482 0 /home/brandon/PIL/ch25/ex25-2b_test.lua
 bookmarks: 
-buffer: 696 696 37 /home/brandon/PIL/ch25/ex25-1b_test.lua
+buffer: 274 278 0 /home/brandon/PIL/ch25/ex25-4_test.lua
 bookmarks: 
-buffer: 484 484 0 /home/brandon/PIL/ch25/ex25-2b_test.lua
+buffer: 0 0 0 /home/brandon/PIL/ch25/ex25-5_test.lua
 bookmarks: 
-buffer: 0 0 0 [Message Buffer]
-bookmarks: 
-size: false 1280 775
-view1: 10
+size: true 1280 740
+view1: 1
 current_view: 1
+recent: /home/brandon/PIL/ch25/ex25-5_test.lua
+recent: /home/brandon/PIL/ch25/ex25-4_test.lua
 recent: /home/brandon/PIL/ch25/ex25-2b_test.lua
 recent: /home/brandon/PIL/ch25/ex25-1b_test.lua
 recent: /home/brandon/PIL/ch25/ex25-1b.lua
@@ -31,5 +31,3 @@ recent: /home/brandon/PIL/ch25/ex25-5.lua
 recent: /home/brandon/PIL/ch25/ex25-4.lua
 recent: /home/brandon/PIL/ch25/modules/var_it_test.lua
 recent: /home/brandon/PIL/ch25/modules/var_it.lua
-recent: /home/brandon/PIL/ch25/ex25-3_test.lua
-recent: /home/brandon/PIL/ch25/ex25-3.lua

@@ -29,6 +29,7 @@ local my_modlist = {
 	"god_mode",
 	"file_opener",
 	"series",
+	"select_command",
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -70,8 +71,9 @@ events.connect(events.INITIALIZED, function ()
 			return
 		end
 	end
-
 	
+	keys.au = select_command()
+	--[[
 	events.connect(events.QUIT, function ()
 		local button = ui.dialogs.ok_msgbox {
 			title = "Confirm",
@@ -81,6 +83,7 @@ events.connect(events.INITIALIZED, function ()
 	
 		return button == 2
 	end)
+	--]]
 	
 	-- An example mode.
 	--keys.ci = nav.load()

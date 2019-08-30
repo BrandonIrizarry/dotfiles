@@ -39,7 +39,7 @@ keys.file_opener = {
 }
 
 keys.co = function ()
-	ui.command_entry:set_text(buffer.filename:match(".*/") or os.getenv("HOME").."/")
+	ui.command_entry:set_text(buffer.filename and buffer.filename:match(".*/") or os.getenv("HOME").."/")
 	ui.statusbar_text = "Enter path:"
 	ui.command_entry.enter_mode("file_opener")
 	
