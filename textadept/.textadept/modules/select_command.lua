@@ -1,4 +1,4 @@
-
+ 
 
 function init()
 
@@ -9,7 +9,7 @@ function init()
 	-- after the user hits Tab.
 	local old_ret = keys.lua_command["\n"] 
 	local old_tab = keys.lua_command["\t"]
-	alert(type(past_commands))
+	--alert(type(past_commands))
 
 	keys.lua_command = {
 		["\n"] = 

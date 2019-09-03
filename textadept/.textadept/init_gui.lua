@@ -29,7 +29,7 @@ local my_modlist = {
 	"god_mode",
 	"file_opener",
 	"series",
-	"select_command",
+	--"select_command",
 }
 
 events.connect(events.INITIALIZED, function ()
@@ -72,7 +72,7 @@ events.connect(events.INITIALIZED, function ()
 		end
 	end
 	
-	keys.au = select_command()
+	--keys.au = select_command()
 	--[[
 	events.connect(events.QUIT, function ()
 		local button = ui.dialogs.ok_msgbox {
@@ -89,7 +89,7 @@ events.connect(events.INITIALIZED, function ()
 	--keys.ci = nav.load()
 	
 	-- Another mode.
-	keys.ci = god_mode.load()
+	--keys.ci = god_mode.load()
 
 	
 	-- Modify cN to select the trailing newline, so that we can indent single lines.
