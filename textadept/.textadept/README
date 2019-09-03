@@ -1,0 +1,6 @@
+ANTIX
+-------
+
+Luckily, not much is needed these days to successfully compile TA on AntiX.
+You still need g++, the dev version of libgtk2, and the dev version of libncurses5
+(for TA-curses.)
