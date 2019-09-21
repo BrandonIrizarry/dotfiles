@@ -3,6 +3,8 @@
 	A prefix of '__' refers to the internal, zero-indexed representation of lines.
 ]]
 
+local current_line = require "current_line" 
+
 return function (lno_start, lno_end)
 		local __cline = current_line()
 		

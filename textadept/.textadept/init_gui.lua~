@@ -1,9 +1,19 @@
-do
-	local define_theme = require "define_theme"
-	_G.apply_theme = define_theme("sand", "Liberation Mono", 15)
+
+
+-- Useful for making it clear from the main config file, 
+-- what we're doing with the theme. 
+function load_theme (buffer)
+	loadfile(_USERHOME.."/themes/current_theme.lua", "t", {
+		_G=_G,
+		BUFFER=buffer or _G.buffer,
+		THEME="sand",
+		FONT="Liberation Mono",
+		FONTSIZE=15,
+	})()
 end
 
-apply_theme()
+-- Load the theme for this buffer.
+load_theme()
 
 -- Confirm saves with a dialog box.
 events.connect(events.FILE_AFTER_SAVE, function (filename)
@@ -11,29 +21,26 @@ events.connect(events.FILE_AFTER_SAVE, function (filename)
 	ui.statusbar_text = string.format("Wrote file '%s' to disk!", basename)
 end)
 
-_C = {}
+events.connect(events.LEXER_LOADED, function (lang)
+	if lang == "lua" then
+		ui.print(lua)
+	end
+end)
 
-keys.ce = function ()
-	local buffer = ui.command_entry
-	
-	buffer.enter_mode("lua_command", "lua")
-	buffer:set_text("_C.")
-	buffer:goto_pos(buffer.length)
-end
+--[[
+local alert = modcreate(require "alert")
+local greet = modcreate(alert, require "greet")
 
-_C.file = require "file_opener"
-keys.co = _C.file
-_C.root = require("config").root_config
-_C.user = require("config").config
-_C.rename = require "rename_file"
-_C.lines = require "select_lines"
-_C.lexed = require "select_lexified"
-_C.reset = _G.reset
-_C.buffers = ui.switch_buffer
-_C.term = require "term"
-
+local greet = require("greet").deps(alert)
 --]]
 
+
+
+--[[
+local alert = create()
+local special_keys = create(alert, current_line)
+--]]
+	
 --[[
 local my_modlist = {
 	"current_line",
@@ -52,6 +59,8 @@ local my_modlist = {
 	--"select_command",
 }
 --]]
+
+
 
 --[=[
 events.connect(events.INITIALIZED, function ()

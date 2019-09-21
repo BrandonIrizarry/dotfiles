@@ -8,14 +8,24 @@ so we have to escape them.
 	Unselecting the displayed path only works _after_ entering the mode.
 ]]
 
+local alert = require "alert"
+
 local dir_stack = require "file_opener.dir_stack"
 local ls_command = "ls -ap"
 
+-- I want the Enter key to help me navigate up directories,
+-- so I need this one separate.
+local function fix_dir ()
+	local dir, part = dir_stack(ui.command_entry:get_text())
+	ui.command_entry:set_text(dir..part)
+	ui.command_entry:goto_pos(ui.command_entry.length)
+	
+	return dir, part
+end
+
 keys.file_opener = {
 	["\t"] = function ()
-		local dir, part = dir_stack(ui.command_entry:get_text())
-		ui.command_entry:set_text(dir..part)
-		ui.command_entry:goto_pos(ui.command_entry.length)
+		local dir, part = fix_dir()
 		
 		local list = {}
 	
@@ -34,14 +44,19 @@ keys.file_opener = {
 	end,
 	
 	["\n"] = function ()
-		return ui.command_entry.finish_mode(io.open_file) 
+		local dir, part = fix_dir()
+		if #part > 0 then -- not just a directory; there's a file
+			return ui.command_entry.finish_mode(io.open_file) -- need the 'return' :)
+		end
 	end
 }
 
-keys.co = function ()
-	ui.command_entry:set_text(buffer.filename and buffer.filename:match(".*/") or os.getenv("HOME").."/")
-	ui.statusbar_text = "Enter path:"
-	ui.command_entry.enter_mode("file_opener")
+return function ()
+	local buffer, filename = ui.command_entry, _G.buffer.filename
 	
-	ui.command_entry:set_empty_selection(ui.command_entry.length)
+	buffer:set_text(filename and filename:match(".*/") or os.getenv("HOME").."/")
+	ui.statusbar_text = "Enter path:"
+	buffer.enter_mode("file_opener")
+	
+	buffer:set_empty_selection(buffer.length)
 end

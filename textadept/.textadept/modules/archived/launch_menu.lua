@@ -2,8 +2,8 @@
 	NB: We can't have prototypal objects be modules, since, if we
 modify the object/module's fields, we can never get the factory-defaults
 version back, because 'require' doesn't reload modules.
-	So make the original, module-based object 
-a read-only table, and arrange things such that its clones are read/write.
+	So make the original, module-based object a read-only table, and arrange 
+things such that its clones are read/write.
 
 Example usage:
 

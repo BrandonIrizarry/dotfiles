@@ -1,4 +1,3 @@
--- The all-important 'alert'.
 return function (...)
     local args = table.pack(...)
     
@@ -6,10 +5,9 @@ return function (...)
       args[i] = tostring(args[i])
     end
     
-    local data = table.concat(args, "\n")
-    
     ui.dialogs.msgbox {
       title = "Alert!",
-      text = data,
+      text = table.concat(args, " "),
     }
 end
+
